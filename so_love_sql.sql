@@ -175,3 +175,25 @@ CREATE TABLE `solove_user_activity` (
   `activityID` int(11) NOT NULL DEFAULT '0' COMMENT '活动ID',
   PRIMARY KEY (`userActivityID`)
 ) DEFAULT CHARSET=utf8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*创建app设置表--solove_appSetting*/
+DROP TABLE IF EXISTS `solove_appSetting`;
+CREATE TABLE `solove_appSetting` (
+  `appSettingID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'appSettingID',
+  `appVersion` int(11) NOT NULL DEFAULT '0' COMMENT 'APP版本',
+  PRIMARY KEY (`appSettingID`)
+) DEFAULT CHARSET=utf8;
