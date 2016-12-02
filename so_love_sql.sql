@@ -19,14 +19,17 @@ DROP TABLE IF EXISTS `solove_userDetailInfo`;
 CREATE TABLE `solove_userDetailInfo` (
   `userDetailInfoID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'userDetailInfoID',
   `userID` int(11) NOT NULL DEFAULT '0' COMMENT '所属用户ID',
+  `userCard` varchar(20) DEFAULT NULL COMMENT '身份证号',
   `userSex` varchar(5) DEFAULT NULL COMMENT '性别, man:男   woman:女',
   `userAge` int(2) DEFAULT NULL COMMENT '年龄',
   `userName` varchar(50) DEFAULT NULL COMMENT '真实姓名',
   `userNick` varchar(50) DEFAULT NULL COMMENT '昵称',
   `userPhone` varchar(50) DEFAULT NULL COMMENT '联系电话',
+  `userQQ` varchar(15) DEFAULT NULL COMMENT 'QQ',
+  `userWeixin` varchar(50) DEFAULT NULL COMMENT '微信',
   `userHeadImage` varchar(50) DEFAULT NULL COMMENT '用户头像',
   `userNation` varchar(20) DEFAULT NULL COMMENT '民族',
-  `userWork` varchar(20) DEFAULT NULL COMMENT '工作性质',
+  `userWork` varchar(20) DEFAULT NULL COMMENT '工作性质、职务职称',
   `userFaith` varchar(20) DEFAULT NULL COMMENT '宗教信仰',
   `userBlood` varchar(2) DEFAULT NULL COMMENT '血型  A B O AB',
   `userHeight` int(5) DEFAULT NULL COMMENT '身高(cm)',
@@ -34,13 +37,23 @@ CREATE TABLE `solove_userDetailInfo` (
   `userBirthday` date DEFAULT NULL COMMENT '生日',
   
   `userEvaluation` varchar(500) DEFAULT NULL COMMENT '自我评价',
-  `userLovePlan` varchar(500) DEFAULT NULL COMMENT '爱情规划',
+  `userLovePlan` varchar(50) DEFAULT NULL COMMENT '爱情规划',
+
+  `userSchool` varchar(50) DEFAULT NULL COMMENT '毕业学校',
+  `userMagor` varchar(50) DEFAULT NULL COMMENT '所学专业',
+  
+
   
   `userEducation` int(2) NOT NULL DEFAULT 0 COMMENT '学历  0无、1小学、2初中、3高中、4大专、5专科、6本科、7硕士、8博士',
   `userIncomeLevel` int(2) DEFAULT NULL COMMENT '月收入范围   0:2000及以下  1:2001——10000  2:10000及以上',
   `userMaritalStatus` varchar(15) NOT NULL DEFAULT 'unmarried' COMMENT '婚姻状况  unmarried:未婚   remarried:离异',
+  `userMaritalCard` varchar(20) DEFAULT NULL COMMENT '离婚证号',
+  
   `userHaveCar` varchar(5) NOT NULL DEFAULT 'no' COMMENT '购车情况  no:没车   yes:有车',
   `userHaveHome` varchar(5) NOT NULL DEFAULT 'no' COMMENT '购房情况  no:没房   yes:有房',
+  
+  `theNode` varchar(255) DEFAULT NULL COMMENT '备注',
+  
   `provinceID` int(11) DEFAULT NULL COMMENT '省ID',
   `provinceName` varchar(50) DEFAULT NULL COMMENT '省名称',
   `cityID` int(11) DEFAULT NULL COMMENT '市ID',
@@ -75,12 +88,22 @@ DROP TABLE IF EXISTS `solove_childrenInfo`;
 CREATE TABLE `solove_childrenInfo` (
   `childrenID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'childrenID',
   `userID` int(11) NOT NULL DEFAULT '0' COMMENT '所属用户ID',
-  `childrenSex` varchar(5) DEFAULT NULL COMMENT '性别, man:男   woman:女',
+  `childrenRelation` varchar(5) DEFAULT NULL COMMENT '关系, man:儿子   woman:女儿',
   `childrenAge` int(2) DEFAULT NULL COMMENT '年龄',
-  `childrenRecommend` varchar(500) DEFAULT NULL COMMENT '简介',
+  `childrenRecommend` varchar(500) DEFAULT NULL COMMENT '简介  如：上学情况、工作情况、婚姻情况、住房情况、健康情况',
   PRIMARY KEY (`childrenID`)
 ) DEFAULT CHARSET=utf8;
 
+/*创建父母信息表--solove_parentInfo*/
+DROP TABLE IF EXISTS `solove_parentInfo`;
+CREATE TABLE `solove_parentInfo` (
+  `parentID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'parentID',
+  `userID` int(11) NOT NULL DEFAULT '0' COMMENT '所属用户ID',
+  `parentRelation` varchar(5) DEFAULT NULL COMMENT '关系, man:父亲   woman:母亲',
+  `parentAge` int(2) DEFAULT NULL COMMENT '年龄',
+  `parentRecommend` varchar(500) DEFAULT NULL COMMENT '简介  如：上学情况、工作情况、婚姻情况、住房情况',
+  PRIMARY KEY (`parentID`)
+) DEFAULT CHARSET=utf8;
 
 /*创建会员信息表--solove_memberInfo*/
 DROP TABLE IF EXISTS `solove_memberInfo`;
@@ -115,6 +138,7 @@ CREATE TABLE `solove_mateInfo` (
   `countyName` varchar(50) DEFAULT NULL COMMENT '区县名称',
   `townID` int(11) DEFAULT NULL COMMENT '村ID',
   `townName` varchar(50) DEFAULT NULL COMMENT '村名称',
+  `theNode` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`mateID`)
 ) DEFAULT CHARSET=utf8;
 
