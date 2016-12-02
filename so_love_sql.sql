@@ -4,7 +4,7 @@ CREATE TABLE `solove_userInfo` (
   `userID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'userID',
   `getChoiceNum` int(11) DEFAULT 0 COMMENT '获赞数(有几个人对我有意向)',
   `setChoiceNum` int(11) DEFAULT 0 COMMENT '点赞数(对几个人有意向)',
-  `userIntegral` int(11) DEFAULT 0 COMMENT '积分',
+  `userIntegralTotal` int(11) DEFAULT 0 COMMENT '积分总和',
   `userLevel` varchar(10) NOT NULL DEFAULT 'general' COMMENT '用户级别, general:普通用户    member:会员',
   `loginName` varchar(50) DEFAULT NULL COMMENT '登录名',
   `passWord` varchar(50) DEFAULT NULL COMMENT '密码',
@@ -176,7 +176,16 @@ CREATE TABLE `solove_user_activity` (
   PRIMARY KEY (`userActivityID`)
 ) DEFAULT CHARSET=utf8;
 
-
+/*创建积分明细表--solove_integralDetail*/
+DROP TABLE IF EXISTS `solove_integralDetail`;
+CREATE TABLE `solove_integralDetail` (
+  `integralDetailID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'integralDetailID',
+  `userID` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `integralMode` varchar(10) NOT NULL DEFAULT 'add' COMMENT '积分明细方式, add:增加(默认)  reduce:减少',
+  `integralContent` varchar(50) DEFAULT NULL COMMENT '积分明细内容',
+  `integralTime` TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '积分明细时间',
+  PRIMARY KEY (`integralDetailID`)
+) DEFAULT CHARSET=utf8;
 
 
 
