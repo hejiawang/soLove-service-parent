@@ -7,6 +7,7 @@ CREATE TABLE `solove_userInfo` (
   `userIntegralTotal` int(11) DEFAULT 0 COMMENT '积分总和',
   `userChoiceTotal` int(11) DEFAULT 0 COMMENT '一共可查看多少信息',
   `userChoiceNum` int(11) DEFAULT 0 COMMENT '已经查看多少信息',
+  `userMaritalSuccess` varchar(10) NOT NULL DEFAULT 'no' COMMENT '是否脱单成功, no:否(默认)   yes:是',
   `userLevel` varchar(10) NOT NULL DEFAULT 'general' COMMENT '用户级别, general:普通用户    member:会员',
   `loginName` varchar(50) DEFAULT NULL COMMENT '登录名',
   `passWord` varchar(50) DEFAULT NULL COMMENT '密码',
@@ -40,21 +41,19 @@ CREATE TABLE `solove_userDetailInfo` (
   
   `userEvaluation` varchar(500) DEFAULT NULL COMMENT '自我评价',
   `userLovePlan` varchar(50) DEFAULT NULL COMMENT '爱情规划',
-
+  `theNode` varchar(255) DEFAULT NULL COMMENT '备注',
+  
   `userSchool` varchar(50) DEFAULT NULL COMMENT '毕业学校',
   `userMagor` varchar(50) DEFAULT NULL COMMENT '所学专业',
-  
-
-  
   `userEducation` int(2) NOT NULL DEFAULT 0 COMMENT '学历  0无、1小学、2初中、3高中、4大专、5专科、6本科、7硕士、8博士',
+  
   `userIncomeLevel` int(2) DEFAULT NULL COMMENT '月收入范围   0:2000及以下  1:2001——10000  2:10000及以上',
+  
   `userMaritalStatus` varchar(15) NOT NULL DEFAULT 'unmarried' COMMENT '婚姻状况  unmarried:未婚   remarried:离异',
   `userMaritalCard` varchar(20) DEFAULT NULL COMMENT '离婚证号',
   
   `userHaveCar` varchar(5) NOT NULL DEFAULT 'no' COMMENT '购车情况  no:没车   yes:有车',
   `userHaveHome` varchar(5) NOT NULL DEFAULT 'no' COMMENT '购房情况  no:没房   yes:有房',
-  
-  `theNode` varchar(255) DEFAULT NULL COMMENT '备注',
   
   `provinceID` int(11) DEFAULT NULL COMMENT '省ID',
   `provinceName` varchar(50) DEFAULT NULL COMMENT '省名称',
@@ -217,6 +216,60 @@ CREATE TABLE `solove_integralDetail` (
 
 
 
+
+
+/*创建婚介所信息表--solove_maritalAgency*/
+DROP TABLE IF EXISTS `solove_maritalAgency`;
+CREATE TABLE `solove_maritalAgency` (
+  `maritalAgencyID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'maritalAgencyID',
+  `maritalAgencyName` varchar(100) DEFAULT NULL COMMENT '婚介所名称',
+  `maritalAgencyLogo` varchar(100) DEFAULT NULL COMMENT '婚介所logo',
+  `maritalAgencyPhone` varchar(15) DEFAULT NULL COMMENT '婚介所联系方式',
+  `maritalAgencyDetail` varchar(500) DEFAULT NULL COMMENT '婚介所描述(详细信息)',
+  `provinceID` int(11) DEFAULT NULL COMMENT '省ID',
+  `provinceName` varchar(50) DEFAULT NULL COMMENT '省名称',
+  `cityID` int(11) DEFAULT NULL COMMENT '市ID',
+  `cityName` varchar(50) DEFAULT NULL COMMENT '市名称',
+  `countyID` int(11) DEFAULT NULL COMMENT '区县ID',
+  `countyName` varchar(50) DEFAULT NULL COMMENT '区县名称',
+  `townID` int(11) DEFAULT NULL COMMENT '村ID',
+  `townName` varchar(50) DEFAULT NULL COMMENT '村名称',
+  `areaName` varchar(100) DEFAULT NULL COMMENT '详细地址',
+  `isCurrent` varchar(10) NOT NULL DEFAULT 'normal' COMMENT '当前状态, normal:正常(默认) pause:暂停  ',
+  `isDelete` varchar(5) NOT NULL DEFAULT 'no' COMMENT '是否删除, yes:已删除  no:未删除(默认)',
+  `theNode` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`maritalAgencyID`)
+) DEFAULT CHARSET=utf8;
+
+/*创建婚介所工作人员信息表--solove_maritalEmploy*/
+DROP TABLE IF EXISTS `solove_maritalEmploy`;
+CREATE TABLE `solove_maritalEmploy` (
+  `maritalEmployID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'maritalEmployID',
+  `maritalAgencyID` int(11) NOT NULL COMMENT '所属婚介所ID',
+  `maritalEmploySex` varchar(5) DEFAULT NULL COMMENT '性别, man:男   woman:女',
+  `maritalEmployAge` int(2) DEFAULT NULL COMMENT '年龄',
+  `maritalEmployName` varchar(50) DEFAULT NULL COMMENT '真实姓名',
+  `maritalEmployNick` varchar(50) DEFAULT NULL COMMENT '昵称',
+  `maritalEmployPhone` varchar(50) DEFAULT NULL COMMENT '联系电话',
+  `maritalEmployQQ` varchar(15) DEFAULT NULL COMMENT 'QQ',
+  `maritalEmployWeixin` varchar(50) DEFAULT NULL COMMENT '微信',
+  `maritalEmployImage` varchar(50) DEFAULT NULL COMMENT '头像',
+  `maritalEmployEvaluation` varchar(500) DEFAULT NULL COMMENT '自我评价:促使多少新人在一起等等',
+  `sort` int(5) NOT NULL DEFAULT '1' COMMENT '排序',
+  `isCurrent` varchar(10) NOT NULL DEFAULT 'normal' COMMENT '当前状态, normal:正常(默认) pause:暂停',
+  `isDelete` varchar(5) NOT NULL DEFAULT 'no' COMMENT '是否删除, yes:已删除  no:未删除(默认)',
+  `theNode` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`maritalEmployID`)
+) DEFAULT CHARSET=utf8;
+
+/*创建婚介所工作人员与会员的关联表--solove_marital_member*/
+DROP TABLE IF EXISTS `solove_marital_member`;
+CREATE TABLE `solove_marital_member` (
+  `maritalMemberID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'maritalMemberID',
+  `maritalEmployID` int(11) NOT NULL COMMENT '所属婚介所工作人员ID',
+  `memberID` int(11) NOT NULL COMMENT '会员ID',
+  PRIMARY KEY (`maritalMemberID`)
+) DEFAULT CHARSET=utf8;
 
 
 
