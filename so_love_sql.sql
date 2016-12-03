@@ -5,6 +5,8 @@ CREATE TABLE `solove_userInfo` (
   `getChoiceNum` int(11) DEFAULT 0 COMMENT '获赞数(有几个人对我有意向)',
   `setChoiceNum` int(11) DEFAULT 0 COMMENT '点赞数(对几个人有意向)',
   `userIntegralTotal` int(11) DEFAULT 0 COMMENT '积分总和',
+  `userChoiceTotal` int(11) DEFAULT 0 COMMENT '一共可查看多少信息',
+  `userChoiceNum` int(11) DEFAULT 0 COMMENT '已经查看多少信息',
   `userLevel` varchar(10) NOT NULL DEFAULT 'general' COMMENT '用户级别, general:普通用户    member:会员',
   `loginName` varchar(50) DEFAULT NULL COMMENT '登录名',
   `passWord` varchar(50) DEFAULT NULL COMMENT '密码',
