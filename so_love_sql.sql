@@ -112,6 +112,7 @@ CREATE TABLE `solove_memberInfo` (
   `memberID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'memberID',
   `userID` int(11) NOT NULL DEFAULT '0' COMMENT '所属用户ID',
   `memberLevel` int(2) NOT NULL DEFAULT '1' COMMENT '会员等级,默认1级,级数越高权限越大',
+  `memberMoney` int(5) NOT NULL DEFAULT 0 COMMENT '会员费',
   `beginDate` TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '会员开启日期',
   `endDate` TIMESTAMP NOT NULL DEFAULT '2030-12-12 23:59:59' COMMENT '会员结束日期',
   PRIMARY KEY (`memberID`)

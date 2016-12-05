@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.write.SoLoveUserDetailInfoWriteDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveUserDetailInfoEntity">
+		<id column="userDetailInfoID" property="userDetailInfoID" jdbcType="INTEGER" />
+		<result column="userID" property="userID" jdbcType="INTEGER" />
+		<result column="userCard" property="userCard" jdbcType="VARCHAR" />
+		<result column="userSex" property="userSex" jdbcType="VARCHAR" />
+		<result column="userAge" property="userAge" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="userNick" property="userNick" jdbcType="VARCHAR" />
+		<result column="userPhone" property="userPhone" jdbcType="VARCHAR" />
+		<result column="userQQ" property="userQQ" jdbcType="VARCHAR" />
+		<result column="userWeixin" property="userWeixin" jdbcType="VARCHAR" />
+		<result column="userHeadImage" property="userHeadImage" jdbcType="VARCHAR" />
+		<result column="userNation" property="userNation" jdbcType="VARCHAR" />
+		<result column="userWork" property="userWork" jdbcType="VARCHAR" />
+		<result column="userFaith" property="userFaith" jdbcType="VARCHAR" />
+		<result column="userBlood" property="userBlood" jdbcType="VARCHAR" />
+		<result column="userHeight" property="userHeight" jdbcType="INTEGER" />
+		<result column="userWeight" property="userWeight" jdbcType="INTEGER" />
+		<result column="userBirthday" property="userBirthday" jdbcType="TIMESTAMP"/>
+		<result column="userEvaluation" property="userEvaluation" jdbcType="VARCHAR" />
+		<result column="userLovePlan" property="userLovePlan" jdbcType="VARCHAR" />
+		<result column="theNode" property="theNode" jdbcType="VARCHAR" />
+		<result column="userSchool" property="userSchool" jdbcType="VARCHAR" />
+		<result column="userMagor" property="userMagor" jdbcType="VARCHAR" />
+		<result column="userEducation" property="userEducation" jdbcType="INTEGER" />
+		<result column="userIncomeLevel" property="userIncomeLevel" jdbcType="INTEGER" />
+		<result column="userMaritalStatus" property="userMaritalStatus" jdbcType="VARCHAR" />
+		<result column="userMaritalCard" property="userMaritalCard" jdbcType="VARCHAR" />
+		<result column="userHaveCar" property="userHaveCar" jdbcType="VARCHAR" />
+		<result column="userHaveHome" property="userHaveHome" jdbcType="VARCHAR" />
+		<result column="provinceID" property="provinceID" jdbcType="INTEGER" />
+		<result column="provinceName" property="provinceName" jdbcType="VARCHAR" />
+		<result column="cityID" property="cityID" jdbcType="INTEGER" />
+		<result column="cityName" property="cityName" jdbcType="VARCHAR" />
+		<result column="countyID" property="countyID" jdbcType="INTEGER" />
+		<result column="countyName" property="countyName" jdbcType="VARCHAR" />
+		<result column="townID" property="townID" jdbcType="INTEGER" />
+		<result column="townName" property="townName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		userDetailInfoID,userID,userCard,userSex,userAge,userName,userNick,userPhone,
+		userQQ,userWeixin,userHeadImage,userNation,userWork,userFaith,userBlood,
+		userHeight,userWeight,userBirthday,userEvaluation,userLovePlan,theNode,userSchool,
+		userMagor,userEducation,userIncomeLevel,userMaritalStatus,userMaritalCard,userHaveCar,
+		userHaveHome,provinceID,provinceName,cityID,cityName,countyID,countyName,townID,townName
+	</sql>
+	
+	<update id="updateUserDetailInfo" parameterType="com.wang.so.love.service.param.SoLoveUserDetailInfoParam">
+		update solove_userDetailInfo set
+			userCard=#{userCard}, userSex=#{userSex}, userAge=#{userAge}, 
+			userName=#{userName}, userNick=#{userNick}, userPhone=#{userPhone},
+			userQQ=#{userQQ}, userWeixin=#{userWeixin}, userHeadImage=#{userHeadImage},
+			userNation=#{userNation}, userWork=#{userWork} ,userFaith=#{userFaith},
+			userBlood=#{userBlood}, userHeight=#{userHeight}, userWeight=#{userWeight},
+			userBirthday=#{userBirthday}, userEvaluation=#{userEvaluation}, userLovePlan=#{userLovePlan},
+			theNode=#{theNode}, userSchool=#{userSchool}, userMagor=#{userMagor},
+			userEducation=#{userEducation}, userIncomeLevel=#{userIncomeLevel}, userMaritalStatus=#{userMaritalStatus},
+			userMaritalCard=#{userMaritalCard}, userHaveCar=#{userHaveCar}, userHaveHome=#{userHaveHome},
+			provinceID=#{provinceID}, provinceName=#{provinceName}, cityID=#{cityID}, cityName=#{cityName},
+			countyID=#{countyID}, countyName=#{countyName}, townID=#{townID}, townName=#{townName}
+		where userID = #{userID ,jdbcType=INTEGER}
+	</update>
+	
+	<insert id="insertUserDetailInfo" parameterType="com.wang.so.love.service.param.SoLoveUserDetailInfoParam">
+		insert into solove_userInfo (
+			userID,userCard,userSex,userAge,userName,userNick,userPhone,
+			userQQ,userWeixin,userHeadImage,userNation,userWork,userFaith,userBlood,
+			userHeight,userWeight,userBirthday,userEvaluation,userLovePlan,theNode,userSchool,
+			userMagor,userEducation,userIncomeLevel,userMaritalStatus,userMaritalCard,userHaveCar,
+			userHaveHome,provinceID,provinceName,cityID,cityName,countyID,countyName,townID,townName
+		) value (
+			#{userID},#{userCard},#{userSex},#{userAge},#{userName},#{userNick},#{userPhone},
+			#{userQQ},#{userWeixin},#{userHeadImage},#{userNation},#{userWork},#{userFaith},#{userBlood},
+			#{userHeight},#{userWeight},#{userBirthday},#{userEvaluation},#{userLovePlan},#{theNode},#{userSchool},
+			#{userMagor},#{userEducation},#{userIncomeLevel},#{userMaritalStatus},#{userMaritalCard},#{userHaveCar},
+			#{userHaveHome},#{provinceID},#{provinceName},#{cityID},#{cityName},#{countyID},#{countyName},#{townID},#{townName}
+		)
+	</insert>
+	
+</mapper>

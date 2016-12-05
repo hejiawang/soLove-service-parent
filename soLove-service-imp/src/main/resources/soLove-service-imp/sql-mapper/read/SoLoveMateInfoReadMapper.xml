@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.read.SoLoveMateInfoReadDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveMateInfoEntity">
+		<id column="mateID" property="mateID" jdbcType="INTEGER" />
+		<result column="userID" property="userID" jdbcType="INTEGER" />
+		<result column="mateSex" property="mateSex" jdbcType="VARCHAR" />
+		<result column="mateAgeLevel" property="mateAgeLevel" jdbcType="INTEGER" />
+		<result column="mateHeightLevel" property="mateHeightLevel" jdbcType="INTEGER" />
+		<result column="mateEducation" property="mateEducation" jdbcType="INTEGER" />
+		<result column="mateIncomeLevel" property="mateIncomeLevel" jdbcType="VARCHAR" />
+		<result column="mateMaritalStatus" property="mateMaritalStatus" jdbcType="VARCHAR" />
+		<result column="mateHaveCar" property="mateHaveCar" jdbcType="VARCHAR" />
+		<result column="mateHaveHome" property="mateHaveHome" jdbcType="VARCHAR" />
+		<result column="mateHaveChildren" property="mateHaveChildren" jdbcType="VARCHAR" />
+		<result column="provinceID" property="provinceID" jdbcType="INTEGER" />
+		<result column="provinceName" property="provinceName" jdbcType="VARCHAR" />
+		<result column="cityID" property="cityID" jdbcType="INTEGER" />
+		<result column="cityName" property="cityName" jdbcType="VARCHAR" />
+		<result column="countyID" property="countyID" jdbcType="INTEGER" />
+		<result column="countyName" property="countyName" jdbcType="VARCHAR" />
+		<result column="townID" property="townID" jdbcType="INTEGER" />
+		<result column="townName" property="townName" jdbcType="VARCHAR" />
+		<result column="theNode" property="theNode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		mateID,userID,mateSex,mateAgeLevel,mateHeightLevel,mateEducation,mateIncomeLevel,
+		mateMaritalStatus,mateHaveCar,mateHaveHome,mateHaveChildren,
+		provinceID,provinceName,cityID,cityName,countyID,countyName,townID,townName,
+		theNode
+	</sql>
+	
+</mapper>
