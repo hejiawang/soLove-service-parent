@@ -55,11 +55,11 @@ public class SoLoveMateInfoModel {
 	 * @param userID 用户ID
 	 * @return 用户详细信息
 	 */
-	public SoLoveMateInfoEntity getMateInfoByID(Integer userID) {
+	public SoLoveMateInfoEntity getMateInfoByUserID(Integer userID) {
 		Assert.notNull(soLoveMateInfoReadDao, "Property 'soLoveMateInfoReadDao' is required.");
 		if( userID == null ) throw new BusinessException("用户ID不能为空");
 		
-		return soLoveMateInfoReadDao.getMateInfoByID( userID );
+		return soLoveMateInfoReadDao.getMateInfoByUserID( userID );
 	}
 
 }

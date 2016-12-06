@@ -54,11 +54,11 @@ public class SoLoveUserDetailInfoModel {
 	 * @param userID 用户ID
 	 * @return 用户详细信息
 	 */
-	public SoLoveUserDetailInfoEntity getUserDetailInfoByID(Integer userID) {
+	public SoLoveUserDetailInfoEntity getUserDetailInfoByUserID(Integer userID) {
 		Assert.notNull(soloveUserDetailInfoReadDao, "Property 'soloveUserDetailInfoReadDao' is required.");
 		if( userID == null ) throw new BusinessException("用户ID不能为空");
 		
-		return soloveUserDetailInfoReadDao.getUserDetailInfoByID( userID );
+		return soloveUserDetailInfoReadDao.getUserDetailInfoByUserID( userID );
 	}
 
 }

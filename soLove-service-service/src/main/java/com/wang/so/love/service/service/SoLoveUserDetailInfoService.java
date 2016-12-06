@@ -25,5 +25,5 @@ public interface SoLoveUserDetailInfoService {
 	 * @param userID 用户ID
 	 * @return 用户详细信息
 	 */
-	public ServiceResult<SoLoveUserDetailInfoEntity> getUserDetailInfoByID( Integer userID );
+	public ServiceResult<SoLoveUserDetailInfoEntity> getUserDetailInfoByUserID( Integer userID );
 }

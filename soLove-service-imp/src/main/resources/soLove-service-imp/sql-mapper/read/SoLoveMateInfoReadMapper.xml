@@ -32,4 +32,11 @@
 		theNode
 	</sql>
 	
+	<select id="getMateInfoByUserID" resultMap="BaseResultMap">
+		select
+			<include refid="getAllColumn" />
+		from solove_mateInfo
+		where userID = #{userID ,jdbcType=INTEGER}
+	</select>
+	
 </mapper>

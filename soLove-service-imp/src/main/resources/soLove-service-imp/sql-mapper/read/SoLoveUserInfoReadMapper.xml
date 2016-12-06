@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.read.SoLoveUserInfoReadDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveUserInfoImgEntity">
+		<id column="userID" property="userID" jdbcType="INTEGER" />
+		<result column="getChoiceNum" property="getChoiceNum" jdbcType="INTEGER" />
+		<result column="setChoiceNum" property="setChoiceNum" jdbcType="INTEGER" />
+		<result column="userIntegralTotal" property="userIntegralTotal" jdbcType="INTEGER" />
+		<result column="userChoiceTotal" property="userChoiceTotal" jdbcType="INTEGER" />
+		<result column="userChoiceNum" property="userChoiceNum" jdbcType="INTEGER" />
+		<result column="userMaritalSuccess" property="userMaritalSuccess" jdbcType="VARCHAR" />
+		<result column="userLevel" property="userLevel" jdbcType="VARCHAR" />
+		<result column="loginName" property="loginName" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<result column="registerDate" property="registerDate" jdbcType="TIMESTAMP"/>
+		<result column="registerType" property="registerType" jdbcType="VARCHAR" />
+		<result column="isCurrent" property="isCurrent" jdbcType="VARCHAR" />
+		<result column="isDelete" property="isDelete" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		userID,getChoiceNum,setChoiceNum,
+		userIntegralTotal,userChoiceTotal,userChoiceNum,
+		userMaritalSuccess,userLevel,loginName,
+		passWord,registerDate,registerType,
+		isCurrent,isDelete
+	</sql>
+	
+	<select id="checkLoginName" parameterType="com.wang.so.love.service.param.SoLoveUserInfoParam" resultType="java.lang.Integer">
+		select count(1)
+		from soLove_userInfo
+		where loginName = #{loginName, jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

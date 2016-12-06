@@ -32,4 +32,33 @@
 		theNode
 	</sql>
 	
+	<update id="updateMateInfo" parameterType="com.wang.so.love.service.param.SoLoveMateInfoParam">
+		update soLove_mateInfo set
+			mateSex=#{mateSex}, mateAgeLevel=#{mateAgeLevel}, mateHeightLevel=#{mateHeightLevel},
+			mateEducation=#{mateEducation}, mateIncomeLevel=#{mateIncomeLevel}, mateMaritalStatus=#{mateMaritalStatus},
+			mateHaveCar=#{mateHaveCar}, mateHaveHome=#{mateHaveHome}, mateHaveChildren=#{mateHaveChildren},
+			provinceID=#{provinceID}, provinceName=#{provinceName}, cityID=#{cityID}, cityName=#{cityName},
+			countyID=#{countyID}, countyName=#{countyName}, townID=#{townID}, townName=#{townName},
+			theNode=#{theNode}
+		where userID = #{userID ,jdbcType=INTEGER}
+	</update>
+	
+	<insert id="insertMateInfo" parameterType="com.wang.so.love.service.param.SoLoveMateInfoParam">
+		insert into soLove_mateInfov(
+			userID,mateSex,mateAgeLevel,mateHeightLevel,
+			mateEducation,mateIncomeLevel,mateMaritalStatus,
+			mateHaveCar,mateHaveHome,mateHaveChildren,
+			provinceID,provinceName,cityID,cityName,
+			countyID,countyName,townID,townName,
+			theNode
+		) values (
+			#{userID},#{mateSex},#{mateAgeLevel},#{mateHeightLevel},
+			#{mateEducation},#{mateIncomeLevel},#{mateMaritalStatus},
+			#{mateHaveCar},#{mateHaveHome},#{mateHaveChildren},
+			#{provinceID},#{provinceName},#{cityID},#{cityName},
+			#{countyID},#{countyName},#{townID},#{townName},
+			#{theNode}
+		)
+	</insert>
+	
 </mapper>

@@ -61,6 +61,12 @@ public class SoLoveUserInfoEntity implements Serializable {
 	private Date	registerDate;
 	
 	/**
+	 * 用户注册方式</br>
+	 * web(默认)、android、ios
+	 */
+	private String	registerType;
+	
+	/**
 	 * 登录名称(手机号)
 	 */
 	private String	loginName;
@@ -193,6 +199,14 @@ public class SoLoveUserInfoEntity implements Serializable {
 
 	public void setIsCurrent(String isCurrent) {
 		this.isCurrent = isCurrent;
+	}
+
+	public String getRegisterType() {
+		return registerType;
+	}
+
+	public void setRegisterType(String registerType) {
+		this.registerType = registerType;
 	}
 	
 }

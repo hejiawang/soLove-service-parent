@@ -18,5 +18,12 @@ public interface SoLoveMateInfoWriteDao {
 	 * @param mateInfo 用户择偶信息
 	 */
 	Integer updateMateInfo(SoLoveMateInfoParam mateInfo);
+	
+	/**
+	 * 新建用户择偶信息
+	 * 
+	 * @param mateInfo 用户择偶信息
+	 */
+	Integer insertMateInfo(SoLoveMateInfoParam mateInfo);
 
 }

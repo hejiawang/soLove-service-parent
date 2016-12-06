@@ -12,6 +12,7 @@ CREATE TABLE `solove_userInfo` (
   `loginName` varchar(50) DEFAULT NULL COMMENT '登录名',
   `passWord` varchar(50) DEFAULT NULL COMMENT '密码',
   `registerDate` TIMESTAMP NOT NULL DEFAULT now() COMMENT '注册普通用户日期',
+  `registerType` varchar(10) NOT NULL DEFAULT 'web' COMMENT '注册用户来源, web、android、ios',
   `isCurrent` varchar(10) NOT NULL DEFAULT 'normal' COMMENT '当前状态, normal:正常(默认) pause:暂停',
   `isDelete` varchar(5) NOT NULL DEFAULT 'no' COMMENT '是否删除, yes:已删除  no:未删除(默认)',
   PRIMARY KEY (`userID`)

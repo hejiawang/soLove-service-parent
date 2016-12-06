@@ -66,11 +66,11 @@ public class SoLoveMateInfoServiceImp implements SoLoveMateInfoService {
 	 * @return 用户详细信息
 	 */
 	@Override
-	public ServiceResult<SoLoveMateInfoEntity> getMateInfoByID(Integer userID) {
+	public ServiceResult<SoLoveMateInfoEntity> getMateInfoByUserID(Integer userID) {
 		Assert.notNull(soLoveMateInfoModel, "Property 'soLoveMateInfoModel' is required.");
 		ServiceResult<SoLoveMateInfoEntity> serviceResult = new ServiceResult<SoLoveMateInfoEntity>();
 		try {
-			SoLoveMateInfoEntity mateInfo = soLoveMateInfoModel.getMateInfoByID(userID);
+			SoLoveMateInfoEntity mateInfo = soLoveMateInfoModel.getMateInfoByUserID(userID);
 			serviceResult.setResult(mateInfo);
 		} catch (BusinessException e) {
 			serviceResult.setMessage(e.getMessage());

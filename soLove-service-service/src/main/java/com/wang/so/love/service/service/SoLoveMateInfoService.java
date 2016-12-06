@@ -25,5 +25,5 @@ public interface SoLoveMateInfoService {
 	 * @param userID 用户ID
 	 * @return 用户详细信息
 	 */
-	public ServiceResult<SoLoveMateInfoEntity> getMateInfoByID( Integer userID );
+	public ServiceResult<SoLoveMateInfoEntity> getMateInfoByUserID( Integer userID );
 }

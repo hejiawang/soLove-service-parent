@@ -20,6 +20,6 @@ public interface SoLoveMateInfoReadDao {
 	 * @param userID 用户ID
 	 * @return 用户详细信息
 	 */
-	SoLoveMateInfoEntity getMateInfoByID( @Param("userID") Integer userID);
+	SoLoveMateInfoEntity getMateInfoByUserID( @Param("userID") Integer userID);
 
 }

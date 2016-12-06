@@ -20,6 +20,6 @@ public interface SoLoveUserDetailInfoReadDao {
 	 * @param userID 用户ID
 	 * @return 用户详细信息
 	 */
-	SoLoveUserDetailInfoEntity getUserDetailInfoByID( @Param("userID") Integer userID);
+	SoLoveUserDetailInfoEntity getUserDetailInfoByUserID( @Param("userID") Integer userID);
 
 }

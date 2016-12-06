@@ -9,42 +9,42 @@ import org.springframework.util.Assert;
 import com.wang.core.Constants;
 import com.wang.core.ServiceResult;
 import com.wang.core.exception.BusinessException;
-import com.wang.so.love.service.entity.SoLoveUserDetailInfoEntity;
-import com.wang.so.love.service.model.SoLoveUserDetailInfoModel;
-import com.wang.so.love.service.param.SoLoveUserDetailInfoParam;
-import com.wang.so.love.service.service.SoLoveUserDetailInfoService;
+import com.wang.so.love.service.entity.SoLoveUserInfoImgEntity;
+import com.wang.so.love.service.model.SoLoveUserInfoImgModel;
+import com.wang.so.love.service.param.SoLoveUserInfoImgParam;
+import com.wang.so.love.service.service.SoLoveUserInfoImgService;
 
 /**
- * 用户详细信息接口实现
+ * 用户图片信息接口实现
  * 
  * @author HeJiawang
- * @date   2016.12.05
+ * @date 2016.12.06
  */
 @Service
-public class SoLoveUserDetailInfoServiceImp implements SoLoveUserDetailInfoService {
-
+public class SoLoveUserInfoImgServiceImp implements SoLoveUserInfoImgService {
+	
 	/**
 	 * logger
 	 */
-	private final Logger logger = LoggerFactory.getLogger(SoLoveUserDetailInfoServiceImp.class);
+	private final Logger logger = LoggerFactory.getLogger(SoLoveUserInfoImgServiceImp.class);
 	
 	/**
-	 * soloveUserDetailInfoModel
+	 * soLoveUserInfoImgModel
 	 */
 	@Autowired
-	private SoLoveUserDetailInfoModel soloveUserDetailInfoModel;
+	private SoLoveUserInfoImgModel soLoveUserInfoImgModel;
 	
 	/**
-	 * 修改(完善)用户详细信息
+	 * 更新用户照片
 	 * 
-	 * @param userDetailInfo 用户详细信息
+	 * @param userInfoImg 用户照片信息
 	 */
 	@Override
-	public ServiceResult<Void> updateUserDetailInfo(SoLoveUserDetailInfoParam userDetailInfo) {
-		Assert.notNull(soloveUserDetailInfoModel, "Property 'soloveUserDetailInfoModel' is required.");
+	public ServiceResult<Void> updateUserInfoImg(SoLoveUserInfoImgParam userInfoImg) {
+		Assert.notNull(soLoveUserInfoImgModel, "Property 'soLoveUserInfoImgModel' is required.");
 		ServiceResult<Void> serviceResult = new ServiceResult<Void>();
 		try {
-			Boolean isSuccess = soloveUserDetailInfoModel.updateUserDetailInfo(userDetailInfo);
+			Boolean isSuccess = soLoveUserInfoImgModel.updateUserInfoImg(userInfoImg);
 			if( isSuccess ){
 				serviceResult.setMessage("修改信息成功");
 			} else {
@@ -63,18 +63,18 @@ public class SoLoveUserDetailInfoServiceImp implements SoLoveUserDetailInfoServi
 	}
 
 	/**
-	 * 根据用户ID获取该用户详细信息
+	 * 根据用户ID获取用户照片信息
 	 * 
 	 * @param userID 用户ID
-	 * @return 用户详细信息
+	 * @return 用户照片信息
 	 */
 	@Override
-	public ServiceResult<SoLoveUserDetailInfoEntity> getUserDetailInfoByUserID(Integer userID) {
-		Assert.notNull(soloveUserDetailInfoModel, "Property 'soloveUserDetailInfoModel' is required.");
-		ServiceResult<SoLoveUserDetailInfoEntity> serviceResult = new ServiceResult<SoLoveUserDetailInfoEntity>();
+	public ServiceResult<SoLoveUserInfoImgEntity> getUserInfoImgByUserID(Integer userID) {
+		Assert.notNull(soLoveUserInfoImgModel, "Property 'soLoveUserInfoImgModel' is required.");
+		ServiceResult<SoLoveUserInfoImgEntity> serviceResult = new ServiceResult<SoLoveUserInfoImgEntity>();
 		try {
-			SoLoveUserDetailInfoEntity userDetailInfo = soloveUserDetailInfoModel.getUserDetailInfoByUserID(userID);
-			serviceResult.setResult(userDetailInfo);
+			SoLoveUserInfoImgEntity userInfoImg = soLoveUserInfoImgModel.getUserInfoImgByUserID(userID);
+			serviceResult.setResult(userInfoImg);
 		} catch (BusinessException e) {
 			serviceResult.setMessage(e.getMessage());
 			serviceResult.setSuccess(false);

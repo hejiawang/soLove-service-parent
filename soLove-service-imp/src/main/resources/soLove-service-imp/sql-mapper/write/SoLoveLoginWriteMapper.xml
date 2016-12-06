@@ -4,9 +4,9 @@
 	
 	<insert id="registerUserInfo" parameterType="com.wang.so.love.service.param.SoLoveUserInfoParam" useGeneratedKeys="true" keyProperty="userID">
 		insert into solove_userInfo (
-			loginName, passWord
+			loginName, passWord, registerType
 		) value (
-			#{loginName ,jdbcType=VARCHAR}, #{passWord ,jdbcType=VARCHAR}
+			#{loginName ,jdbcType=VARCHAR}, #{passWord ,jdbcType=VARCHAR}, #{registerType, jdbcType=VARCHAR}
 		)
 	</insert>
 	

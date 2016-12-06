@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.write.SoLoveUserInfoImgWriteDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveUserInfoImgEntity">
+		<id column="userImgID" property="userImgID" jdbcType="INTEGER" />
+		<result column="userID" property="userID" jdbcType="INTEGER" />
+		<result column="userImage1" property="userImage1" jdbcType="VARCHAR" />
+		<result column="userImage2" property="userImage2" jdbcType="VARCHAR" />
+		<result column="userImage3" property="userImage3" jdbcType="VARCHAR" />
+		<result column="userImage4" property="userImage4" jdbcType="VARCHAR" />
+		<result column="userImage5" property="userImage5" jdbcType="VARCHAR" />
+		<result column="userImage6" property="userImage6" jdbcType="VARCHAR" />
+		<result column="userImage7" property="userImage7" jdbcType="VARCHAR" />
+		<result column="userImage8" property="userImage8" jdbcType="VARCHAR" />
+		<result column="userImage9" property="userImage9" jdbcType="VARCHAR" />
+		<result column="userImage10" property="userImage10" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		userImgID,userID,
+		userImage1,userImage2,userImage3,userImage4,userImage5,
+		userImage6,userImage7,userImage8,userImage9,userImage10
+	</sql>
+	
+	<update id="updateUserInfoImg" parameterType="com.wang.so.love.service.param.SoLoveUserInfoImgParam">
+		update soLove_userInfoImg set 
+			userImage1=#{userImage1},userImage2=#{userImage2},userImage3=#{userImage3},
+			userImage4=#{userImage4},userImage5=#{userImage5},
+			userImage6=#{userImage6},userImage7=#{userImage7},userImage8=#{userImage8},
+			userImage9=#{userImage9},userImage10=#{userImage10}
+		where userID = #{userID ,jdbcType=INTEGER}
+	</update>
+	
+	<insert id="insertUserInfoImg" parameterType="com.wang.so.love.service.param.SoLoveUserInfoImgParam">
+		insert into soLove_userInfoImg (
+			userID,
+			userImage1,userImage2,userImage3,
+			userImage4,userImage5,
+			userImage6,userImage7,userImage8,
+			userImage9,userImage10
+		) values (
+			#{userID},
+			#{userImage1},#{userImage2},#{userImage3},
+			#{userImage4},#{userImage5},
+			#{userImage6},#{userImage7},#{userImage8},
+			#{userImage9},#{userImage10}
+		)
+	</insert>
+	
+</mapper>

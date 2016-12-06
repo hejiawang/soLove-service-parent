@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.read.SoLoveChildrenInfoReadDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveChildrenInfoEntity">
+		<id column="childrenID" property="childrenID" jdbcType="INTEGER" />
+		<result column="userID" property="userID" jdbcType="INTEGER" />
+		<result column="childrenRelation" property="childrenRelation" jdbcType="VARCHAR" />
+		<result column="childrenAge" property="childrenAge" jdbcType="INTEGER" />
+		<result column="childrenRecommend" property="childrenRecommend" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		childrenID, userID, childrenRelation, childrenAge, childrenRecommend
+	</sql>
+	
+	<select id="getChildrenInfoByID" resultMap="BaseResultMap">
+		select
+			<include refid="getAllColumn" />
+		from solove_childrenInfo
+		where childrenID = #{childrenID ,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getChildrenInfoByUserID" resultMap="BaseResultMap">
+		select
+			<include refid="getAllColumn" />
+		from solove_childrenInfo
+		where userID = #{userID ,jdbcType=INTEGER}
+	</select>
+	
+</mapper>
