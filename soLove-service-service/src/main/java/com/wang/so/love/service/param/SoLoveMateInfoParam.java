@@ -34,11 +34,16 @@ public class SoLoveMateInfoParam implements Serializable {
 	 * 年龄 0:-25 1:25-30 2:30-35 3:35-40 4:40-50 5:50+
 	 */
 	private Integer mateAgeLevel;
-
+	private Integer mateAgeLow;		//对应mateAgeLevel的最低值
+	private Integer mateAgeHigh;	//对应mateAgeLevel的最高值
+	
 	/**
 	 * 身高 0:-160 1:160-165 2:165-170 3:170-175 4:175-180 5:180+
 	 */
 	private Integer mateHeightLevel;
+	private Integer mateHeightLow;	//对应mateHeightLevel的最低值
+	private Integer mateHeightHigh;	//对应mateHeightLevel的最高值
+	
 
 	/**
 	 * 学历 0无、1小学、2初中、3高中、4大专、5专科、6本科、7硕士、8博士
@@ -48,7 +53,7 @@ public class SoLoveMateInfoParam implements Serializable {
 	/**
 	 * 月收入范围 0:2000及以下 1:2001——10000 2:10000及以上
 	 */
-	private String mateIncomeLevel;
+	private Integer mateIncomeLevel;
 
 	/**
 	 * 婚姻状况 unmarried:未婚(默认) remarried:离异
@@ -114,6 +119,16 @@ public class SoLoveMateInfoParam implements Serializable {
 	 * 备注
 	 */
 	private String theNode;
+	
+	/**
+	 * 分页——起始
+	 */
+	private Integer limitStart;
+	
+	/**
+	 * 分页——取多少条
+	 */
+	private Integer limitLength;
 
 	public Integer getMateID() {
 		return mateID;
@@ -163,11 +178,11 @@ public class SoLoveMateInfoParam implements Serializable {
 		this.mateEducation = mateEducation;
 	}
 
-	public String getMateIncomeLevel() {
+	public Integer getMateIncomeLevel() {
 		return mateIncomeLevel;
 	}
 
-	public void setMateIncomeLevel(String mateIncomeLevel) {
+	public void setMateIncomeLevel(Integer mateIncomeLevel) {
 		this.mateIncomeLevel = mateIncomeLevel;
 	}
 
@@ -273,6 +288,54 @@ public class SoLoveMateInfoParam implements Serializable {
 
 	public void setTheNode(String theNode) {
 		this.theNode = theNode;
+	}
+
+	public Integer getLimitStart() {
+		return limitStart;
+	}
+
+	public void setLimitStart(Integer limitStart) {
+		this.limitStart = limitStart;
+	}
+
+	public Integer getLimitLength() {
+		return limitLength;
+	}
+
+	public void setLimitLength(Integer limitLength) {
+		this.limitLength = limitLength;
+	}
+
+	public Integer getMateAgeLow() {
+		return mateAgeLow;
+	}
+
+	public void setMateAgeLow(Integer mateAgeLow) {
+		this.mateAgeLow = mateAgeLow;
+	}
+
+	public Integer getMateAgeHigh() {
+		return mateAgeHigh;
+	}
+
+	public void setMateAgeHigh(Integer mateAgeHigh) {
+		this.mateAgeHigh = mateAgeHigh;
+	}
+
+	public Integer getMateHeightLow() {
+		return mateHeightLow;
+	}
+
+	public void setMateHeightLow(Integer mateHeightLow) {
+		this.mateHeightLow = mateHeightLow;
+	}
+
+	public Integer getMateHeightHigh() {
+		return mateHeightHigh;
+	}
+
+	public void setMateHeightHigh(Integer mateHeightHigh) {
+		this.mateHeightHigh = mateHeightHigh;
 	}
 	
 }

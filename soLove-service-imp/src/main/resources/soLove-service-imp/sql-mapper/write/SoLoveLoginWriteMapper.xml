@@ -10,4 +10,10 @@
 		)
 	</insert>
 	
+	<update id="updatePassWord">
+		update solove_userInfo set 
+			passWord = #{passWord ,jdbcType=VARCHAR}
+		where userID = #{userID ,jdbcType=VARCHAR}
+	</update>
+	
 </mapper>

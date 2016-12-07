@@ -33,4 +33,60 @@
 		where loginName = #{loginName, jdbcType=VARCHAR}
 	</select>
 	
+	<select id="getUserByMateInfo" resultType="com.wang.so.love.service.vo.SoLoveUserSimpleInfoVO" parameterType="com.wang.so.love.service.param.SoLoveMateInfoParam">
+		select 
+			a.userID as userID, b.userAge as userAge, b.userSex as userSex, b.userHeadImage as userHeadImage 
+		from soLove_userInfo a
+		inner join solove_userDetailInfo b
+		<where>
+			a.isCurrent = 'normal' 
+			and a.isDelete = 'no'
+			<if test=" mateSex!='' and mateSex!=null ">
+				and b.userSex = #{mateSex, jdbcType=VARCHAR}
+			</if>
+			<if test=" mateAgeLevel != null ">
+				<![CDATA[ and b.userAge >=  #{mateAgeLow, jdbcType=INTEGER} ]]>
+				<![CDATA[ and b.userAge <=  #{mateAgeHigh, jdbcType=INTEGER} ]]>
+			</if>
+			<if test=" mateHeightLevel != null ">
+				<![CDATA[ and b.userHeight >=  #{mateHeightLow, jdbcType=INTEGER} ]]>
+				<![CDATA[ and b.userHeight <=  #{mateHeightHigh, jdbcType=INTEGER} ]]>
+			</if>
+			<if test=" mateEducation != null ">
+				and b.userEducation = #{mateEducation, jdbcType=INTEGER}
+			</if>
+			<if test=" mateIncomeLevel != null ">
+				and b.userIncomeLevel = #{mateIncomeLevel, jdbcType=INTEGER}
+			</if>
+			<if test=" mateMaritalStatus!='' and mateMaritalStatus!=null ">
+				and b.userMaritalStatus = #{mateMaritalStatus, jdbcType=VARCHAR}
+			</if>
+			<if test=" mateHaveCar!='' and mateHaveCar!=null ">
+				and b.userHaveCar = #{mateHaveCar, jdbcType=VARCHAR}
+			</if>
+			<if test=" mateHaveHome!='' and mateHaveHome!=null ">
+				and b.userHaveHome = #{mateHaveHome, jdbcType=VARCHAR}
+			</if>
+			<if test=" mateHaveChildren!='' and mateHaveChildren=='yes' ">
+				and ( select count(1) from solove_childrenInfo ci where ci.userID = a.userID ) > 0
+			</if>
+			<if test=" mateHaveChildren!='' and mateHaveChildren=='no' ">
+				and ( select count(1) from solove_childrenInfo ci where ci.userID = a.userID ) = 0
+			</if>
+			<if test=" provinceID != null ">
+				and b.provinceID = #{provinceID, jdbcType=INTEGER}
+			</if>
+			<if test=" cityID != null ">
+				and b.cityID = #{cityID, jdbcType=INTEGER}
+			</if>
+			<if test=" countyID != null ">
+				and b.countyID = #{countyID, jdbcType=INTEGER}
+			</if>
+			<if test=" townID != null ">
+				and b.townID = #{townID, jdbcType=INTEGER}
+			</if>
+		</where>
+		limit #{limitStart, jdbcType=INTEGER}, #{limitLength, jdbcType=INTEGER}
+	</select>
+	
 </mapper>

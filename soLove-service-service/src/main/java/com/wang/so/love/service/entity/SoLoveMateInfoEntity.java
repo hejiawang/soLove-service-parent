@@ -48,7 +48,7 @@ public class SoLoveMateInfoEntity implements Serializable {
 	/**
 	 * 月收入范围 0:2000及以下 1:2001——10000 2:10000及以上
 	 */
-	private String mateIncomeLevel;
+	private Integer mateIncomeLevel;
 
 	/**
 	 * 婚姻状况 unmarried:未婚(默认) remarried:离异
@@ -163,11 +163,11 @@ public class SoLoveMateInfoEntity implements Serializable {
 		this.mateEducation = mateEducation;
 	}
 
-	public String getMateIncomeLevel() {
+	public Integer getMateIncomeLevel() {
 		return mateIncomeLevel;
 	}
 
-	public void setMateIncomeLevel(String mateIncomeLevel) {
+	public void setMateIncomeLevel(Integer mateIncomeLevel) {
 		this.mateIncomeLevel = mateIncomeLevel;
 	}
 

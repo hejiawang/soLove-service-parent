@@ -1,5 +1,7 @@
 package com.wang.so.love.service.model;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -9,7 +11,9 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.Assert;
 
+import com.wang.core.ServiceResult;
 import com.wang.core.exception.BusinessException;
+import com.wang.core.util.MD5;
 import com.wang.so.love.service.dao.read.SoLoveUserInfoReadDao;
 import com.wang.so.love.service.dao.write.SoLoveMateInfoWriteDao;
 import com.wang.so.love.service.dao.write.SoLoveUserDetailInfoWriteDao;
@@ -19,6 +23,7 @@ import com.wang.so.love.service.param.SoLoveMateInfoParam;
 import com.wang.so.love.service.param.SoLoveUserDetailInfoParam;
 import com.wang.so.love.service.param.SoLoveUserInfoImgParam;
 import com.wang.so.love.service.param.SoLoveUserInfoParam;
+import com.wang.so.love.service.vo.SoLoveUserSimpleInfoVO;
 
 /**
  * 用户基本信息Model
@@ -95,6 +100,8 @@ public class SoLoveUserInfoModel {
 			 * 插入基本信息</br>
 			 * 在实体中返回userID
 			 */
+			String passWordMD5 = MD5.getInstrance().getMD5String4(userInfo.getPassWord());
+			userInfo.setPassWord(passWordMD5);
 			Integer result = soLoveUserInfoWriteDao.insertUserInfo(userInfo);
 			Integer userID = userInfo.getUserID();
 			
@@ -150,6 +157,22 @@ public class SoLoveUserInfoModel {
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * 根据择偶条件筛选信息</br>
+	 * 并进行分页
+	 * 
+	 * @param mateInfo 择偶信息
+	 * @return 简单的用户信息,如：年龄、兴趣爱好等
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.07
+	 */
+	public List<SoLoveUserSimpleInfoVO> getUserByMateInfo(SoLoveMateInfoParam mateInfo) {
+		Assert.notNull(soLoveUserInfoReadDao, "Property 'soLoveUserInfoReadDao' is required.");
+		
+		return soLoveUserInfoReadDao.getUserByMateInfo(mateInfo);
 	}
 
 }

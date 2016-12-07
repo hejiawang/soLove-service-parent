@@ -1,5 +1,7 @@
 package com.wang.so.love.service.imp;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,10 @@ import com.wang.core.Constants;
 import com.wang.core.ServiceResult;
 import com.wang.core.exception.BusinessException;
 import com.wang.so.love.service.model.SoLoveUserInfoModel;
+import com.wang.so.love.service.param.SoLoveMateInfoParam;
 import com.wang.so.love.service.param.SoLoveUserInfoParam;
 import com.wang.so.love.service.service.SoLoveUserInfoService;
+import com.wang.so.love.service.vo.SoLoveUserSimpleInfoVO;
 
 /**
  * 用户基本信息接口实现
@@ -62,6 +66,34 @@ public class SoLoveUserInfoServiceImp implements SoLoveUserInfoService {
 				serviceResult.setSuccess(isSuccess);
 			}
 			
+		} catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		return serviceResult;
+	}
+
+	/**
+	 * 根据择偶条件筛选信息</br>
+	 * 并进行分页
+	 * 
+	 * @param mateInfo 择偶信息
+	 * @return 简单的用户信息,如：年龄、兴趣爱好等
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.07
+	 */
+	@Override
+	public ServiceResult<List<SoLoveUserSimpleInfoVO>> getUserByMateInfo(SoLoveMateInfoParam mateInfo) {
+		Assert.notNull(soLoveUserInfoModel, "Property 'soLoveUserInfoModel' is required.");
+		ServiceResult<List<SoLoveUserSimpleInfoVO>> serviceResult = new ServiceResult<List<SoLoveUserSimpleInfoVO>>();
+		try {
+			List<SoLoveUserSimpleInfoVO> userSimpleInfo = soLoveUserInfoModel.getUserByMateInfo(mateInfo);
+			serviceResult.setResult(userSimpleInfo);
 		} catch (BusinessException e) {
 			serviceResult.setMessage(e.getMessage());
 			serviceResult.setSuccess(false);

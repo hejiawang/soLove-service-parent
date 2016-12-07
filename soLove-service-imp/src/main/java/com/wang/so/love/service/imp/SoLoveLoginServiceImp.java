@@ -91,4 +91,35 @@ public class SoLoveLoginServiceImp implements SoLoveLoginService {
 		return serviceResult;
 	}
 
+	/**
+	 *  修改密码
+	 * 
+	 * @param 	userID 用户ID
+	 * @param 	passWord 密码
+	 * @author	HeJiawang
+	 * @date	2016.12.07
+	 */
+	@Override
+	public ServiceResult<Void> passWordEdit(Integer userID, String passWord) {
+		Assert.notNull(soLoveLoginModel, "Property 'soLoveLoginModel' is required.");
+		ServiceResult<Void> serviceResult = new ServiceResult<>();
+		try {
+			Boolean isSuccess = soLoveLoginModel.passWordEdit(userID, passWord);
+			if( isSuccess ){
+				serviceResult.setMessage("修改成功");
+			} else {
+				serviceResult.setMessage("修改失败");
+			}
+			serviceResult.setSuccess(isSuccess);
+		} catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		return serviceResult;
+	}
+
 }

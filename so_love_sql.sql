@@ -128,7 +128,7 @@ CREATE TABLE `solove_mateInfo` (
   `mateAgeLevel` int(2) DEFAULT NULL COMMENT '年龄  0:-25  1:25-30 2:30-35  3:35-40  4:40-50 5:50+',
   `mateHeightLevel` int(2) DEFAULT NULL COMMENT '身高  0:-160 1:160-165  2:165-170  3:170-175  4:175-180 5:180+',
   `mateEducation` int(2) NOT NULL DEFAULT 0 COMMENT '学历  0无、1小学、2初中、3高中、4大专、5专科、6本科、7硕士、8博士',
-  `mateIncomeLevel` varchar(50) DEFAULT NULL COMMENT '月收入范围   0:2000及以下  1:2001——10000  2:10000及以上',
+  `mateIncomeLevel` int(2) DEFAULT NULL COMMENT '月收入范围   0:2000及以下  1:2001——10000  2:10000及以上',
   `mateMaritalStatus` varchar(15) NOT NULL DEFAULT 'unmarried' COMMENT '婚姻状况  unmarried:未婚   remarried:离异',
   `mateHaveCar` varchar(5) NOT NULL DEFAULT 'no' COMMENT '购车情况  no:没车   yes:有车',
   `mateHaveHome` varchar(5) NOT NULL DEFAULT 'no' COMMENT '购房情况  no:没房   yes:有房',

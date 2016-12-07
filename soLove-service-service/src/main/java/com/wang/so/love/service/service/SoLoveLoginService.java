@@ -32,4 +32,14 @@ public interface SoLoveLoginService {
 	 * @date   2016.12.02
 	 */
 	public ServiceResult<SoLoveUserInfoParam> register(String loginName, String passWord);
+	
+	/**
+	 *  修改密码
+	 * 
+	 * @param 	userID 用户ID
+	 * @param 	passWord 密码
+	 * @author	HeJiawang
+	 * @date	2016.12.07
+	 */
+	public ServiceResult<Void> passWordEdit(Integer userID, String passWord);
 }
