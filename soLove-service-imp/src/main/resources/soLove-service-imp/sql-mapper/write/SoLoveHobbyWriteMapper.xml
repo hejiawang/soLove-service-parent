@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.write.SoLoveHobbyWriteDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveHobbyEntity">
+		<id column="hobbyID" property="hobbyID" jdbcType="INTEGER" />
+		<result column="parentHobbyID" property="parentHobbyID" jdbcType="INTEGER" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="iconUrl" property="iconUrl" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="isDelete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="isCurrent" property="isCurrent" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		hobbyID, parentHobbyID, content, iconUrl, sort, isDelete, isCurrent
+	</sql>
+	
+	<insert id="addHobby" parameterType="com.wang.so.love.service.param.SoLoveHobbyParam">
+		insert into solove_hobby (
+			parentHobbyID, content, iconUrl, sort
+		) values (
+			#{parentHobbyID}, #{content}, #{iconUrl}, #{sort}
+		)
+	</insert>
+	
+	<update id="modifyHobby" parameterType="com.wang.so.love.service.param.SoLoveHobbyParam">
+		update solove_hobby set
+			parentHobbyID = #{parentHobbyID}, content = #{content}, 
+			iconUrl = #{iconUrl}, sort = #{sort}
+		where hobbyID = #{hobbyID, ,jdbcType=INTEGER}
+	</update>
+	
+	<update id="deleteHobby">
+		update solove_hobby set isDelete = 'yes'
+		where hobbyID = #{hobbyID, ,jdbcType=INTEGER}
+	</update>
+	
+</mapper>

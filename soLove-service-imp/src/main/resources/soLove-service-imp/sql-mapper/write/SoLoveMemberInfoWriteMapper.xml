@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.write.SoLoveUserInfoWriteDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveUserInfoImgEntity">
+		<id column="memberID" property="memberID" jdbcType="INTEGER" />
+		<result column="userID" property="userID" jdbcType="INTEGER" />
+		<result column="memberLevel" property="memberLevel" jdbcType="INTEGER" />
+		<result column="memberMoney" property="memberMoney" jdbcType="INTEGER" />
+		<result column="beginDate" property="beginDate" jdbcType="TIMESTAMP"/>
+		<result column="endDate" property="endDate" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		memberID, userID, memberLevel, memberMoney, beginDate, endDate
+	</sql>
+	
+	<insert id="insertMemberInfo" parameterType="com.wang.so.love.service.param.SoLoveMemberInfoParam">
+		insert into solove_memberInfo (
+			userID, memberLevel, memberMoney, endDate
+		) values (
+			#{userID}, #{memberLevel}, #{memberMoney}, #{endDate}
+		)
+	</insert>
+	
+</mapper>

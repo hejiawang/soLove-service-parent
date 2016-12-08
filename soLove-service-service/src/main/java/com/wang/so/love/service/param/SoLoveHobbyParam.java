@@ -1,4 +1,4 @@
-package com.wang.so.love.service.entity;
+package com.wang.so.love.service.param;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author HeJiawang
  * @date 2016.12.05
  */
-public class SoLoveHobbyEntity implements Serializable {
+public class SoLoveHobbyParam implements Serializable {
 
 	/**
 	 * 序列号

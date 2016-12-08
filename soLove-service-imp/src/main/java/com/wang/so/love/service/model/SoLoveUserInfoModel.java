@@ -1,6 +1,8 @@
 package com.wang.so.love.service.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +13,26 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.Assert;
 
-import com.wang.core.ServiceResult;
 import com.wang.core.exception.BusinessException;
 import com.wang.core.util.MD5;
+import com.wang.so.love.service.dao.read.SoLoveChildrenInfoReadDao;
+import com.wang.so.love.service.dao.read.SoLoveHobbyReadDao;
+import com.wang.so.love.service.dao.read.SoLoveMateInfoReadDao;
+import com.wang.so.love.service.dao.read.SoLoveParentInfoReadDao;
+import com.wang.so.love.service.dao.read.SoLoveUserDetailInfoReadDao;
+import com.wang.so.love.service.dao.read.SoLoveUserInfoImgReadDao;
 import com.wang.so.love.service.dao.read.SoLoveUserInfoReadDao;
 import com.wang.so.love.service.dao.write.SoLoveMateInfoWriteDao;
 import com.wang.so.love.service.dao.write.SoLoveUserDetailInfoWriteDao;
 import com.wang.so.love.service.dao.write.SoLoveUserInfoImgWriteDao;
 import com.wang.so.love.service.dao.write.SoLoveUserInfoWriteDao;
+import com.wang.so.love.service.entity.SoLoveChildrenInfoEntity;
+import com.wang.so.love.service.entity.SoLoveHobbyEntity;
+import com.wang.so.love.service.entity.SoLoveMateInfoEntity;
+import com.wang.so.love.service.entity.SoLoveParentInfoEntity;
+import com.wang.so.love.service.entity.SoLoveUserDetailInfoEntity;
+import com.wang.so.love.service.entity.SoLoveUserInfoEntity;
+import com.wang.so.love.service.entity.SoLoveUserInfoImgEntity;
 import com.wang.so.love.service.param.SoLoveMateInfoParam;
 import com.wang.so.love.service.param.SoLoveUserDetailInfoParam;
 import com.wang.so.love.service.param.SoLoveUserInfoImgParam;
@@ -59,16 +73,52 @@ public class SoLoveUserInfoModel {
 	private SoLoveUserDetailInfoWriteDao soLoveUserDetailInfoWriteDao;
 	
 	/**
+	 * 用户详细信息——读
+	 */
+	@Autowired
+	private SoLoveUserDetailInfoReadDao soLoveUserDetailInfoReadDao;
+	
+	/**
 	 * 用户照片信息——写
 	 */
 	@Autowired
 	private SoLoveUserInfoImgWriteDao soLoveUserInfoImgWriteDao;
 	
 	/**
+	 * 用户照片信息——读
+	 */
+	@Autowired
+	private SoLoveUserInfoImgReadDao soLoveUserInfoImgReadDao;
+	
+	/**
 	 * 用户择偶信息——写
 	 */
 	@Autowired
 	private SoLoveMateInfoWriteDao soLoveMateInfoWriteDao;
+	
+	/**
+	 * 用户择偶信息——读
+	 */
+	@Autowired
+	private SoLoveMateInfoReadDao soLoveMateInfoReadDao;
+	
+	/**
+	 * 兴趣爱好——读
+	 */
+	@Autowired
+	private SoLoveHobbyReadDao soLoveHobbyReadDao;
+	
+	/**
+	 * 用户子女信息——读
+	 */
+	@Autowired
+	private SoLoveChildrenInfoReadDao soLoveChildrenInfoReadDao;
+	
+	/**
+	 * 用户父母信息——读
+	 */
+	@Autowired
+	private SoLoveParentInfoReadDao soLoveParentInfoReadDao;
 	
 	/**
 	 * 新增一个普通注册用户</br>
@@ -126,6 +176,8 @@ public class SoLoveUserInfoModel {
 			mateInfo.setUserID(userID);
 			result = soLoveMateInfoWriteDao.insertMateInfo(mateInfo);
 			
+			transactionManagerMember.commit(status);
+			
 			if( result >= 1 ){
 				return true;
 			} else {
@@ -160,6 +212,73 @@ public class SoLoveUserInfoModel {
 	}
 
 	/**
+	 * 删除用户
+	 * 
+	 * @param userID 用户ID
+	 * @author HeJiawang
+	 * @date 2016.12.08
+	 */
+	public Boolean deleteUserInfo(Integer userID) {
+		Assert.notNull(soLoveUserInfoWriteDao, "Property 'soLoveUserInfoWriteDao' is required.");
+		if( userID == null ) throw new BusinessException("用户ID不能为空");
+		
+		Integer result = soLoveUserInfoWriteDao.deleteUserInfo(userID);
+		if( result >= 1 ){
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * 根据用户ID查看用户的信息——详细信息、照片、爱好、子女父母等所有信息 
+	 * 
+	 * @param userID 用户ID
+	 * 
+	 * @return 
+	 * 		用户信息Map</br>
+	 * 		<li>key:userInfo——用户基本信息</li>
+	 * 		<li>key:userDetail——用户详细信息</li>
+	 * 		<li>key:userImg——用户照片信息</li>
+	 * 		<li>key:userHobby——用户兴趣爱好信息</li>
+	 * 		<li>key:userParent——用户父母信息</li>
+	 * 		<li>key:userChildren——用户子女信息</li>
+	 * 		<li>key:userMate——用户择偶信息</li>
+	 * 
+	 * @author HeJiawang
+	 * @date 2016.12.08
+	 */
+	public Map<String, Object> viewUserInfo(Integer userID) {
+		Assert.notNull(soLoveUserInfoReadDao, "Property 'soLoveUserInfoReadDao' is required.");
+		Assert.notNull(soLoveUserDetailInfoReadDao, "Property 'soLoveUserDetailInfoReadDao' is required.");
+		Assert.notNull(soLoveUserInfoImgReadDao, "Property 'soLoveUserInfoImgReadDao' is required.");
+		Assert.notNull(soLoveMateInfoReadDao, "Property 'soLoveMateInfoReadDao' is required.");
+		Assert.notNull(soLoveChildrenInfoReadDao, "Property 'soLoveChildrenInfoReadDao' is required.");
+		Assert.notNull(soLoveParentInfoReadDao, "Property 'soLoveParentInfoReadDao' is required.");
+		Assert.notNull(soLoveHobbyReadDao, "Property 'soLoveHobbyReadDao' is required.");
+		if( userID == null ) throw new BusinessException("用户ID不能为空");
+		
+		SoLoveUserInfoEntity userInfo = soLoveUserInfoReadDao.getUserInfoByID(userID);
+		SoLoveUserDetailInfoEntity userDetail = soLoveUserDetailInfoReadDao.getUserDetailInfoByUserID(userID);
+		SoLoveUserInfoImgEntity userImg = soLoveUserInfoImgReadDao.getUserInfoImgByUserID(userID);
+		SoLoveMateInfoEntity userMate = soLoveMateInfoReadDao.getMateInfoByUserID(userID);
+		List<SoLoveParentInfoEntity> userParent = soLoveParentInfoReadDao.getParentInfoByUserID(userID);
+		List<SoLoveChildrenInfoEntity> userChildren = soLoveChildrenInfoReadDao.getChildrenInfoByUserID(userID);
+		List<SoLoveHobbyEntity> userHobby = soLoveHobbyReadDao.getHobbyByUserID(userID);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("userInfo", userInfo);
+		result.put("userDetail", userDetail);
+		result.put("userImg", userImg);
+		result.put("userMate", userMate);
+		result.put("userParent", userParent);
+		result.put("userChildren", userChildren);
+		result.put("userHobby", userHobby);
+		
+		return result;
+	}
+	
+	/**
 	 * 根据择偶条件筛选信息</br>
 	 * 并进行分页
 	 * 
@@ -173,6 +292,50 @@ public class SoLoveUserInfoModel {
 		Assert.notNull(soLoveUserInfoReadDao, "Property 'soLoveUserInfoReadDao' is required.");
 		
 		return soLoveUserInfoReadDao.getUserByMateInfo(mateInfo);
+	}
+
+	/**
+	 * 根据条件搜索用户信息</br>
+	 * 并进行分页
+	 * 
+	 * @param param 检索条件
+	 * @param start 分页信息
+	 * @param length 分页信息
+	 * @param draw 分页信息
+	 * 
+	 * @return 适应So love后台管理系统js分页插件的Map
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.08
+	 */
+	public Map<String, Object> pageUserInfo(SoLoveUserDetailInfoParam param, Integer start, Integer length, Integer draw) {
+		Assert.notNull(soLoveUserInfoReadDao, "Property 'soLoveUserInfoReadDao' is required.");
+		if( start==null || length==null || draw==null ) throw new BusinessException("分页信息不能为空");;
+		
+		/**
+		 * 将参数装进map
+		 */
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		paramMap.put( "userDetail", param );
+		paramMap.put( "start", start );
+		paramMap.put( "end", start+length );
+		
+		/**
+		 * 获取数据
+		 */
+		List<Map<String,Object>> pageLsit = soLoveUserInfoReadDao.pageUserInfo(paramMap);
+		Integer recordsTotal = soLoveUserInfoReadDao.pageUserInfoTotal(param);
+		
+		/**
+		 * 将结果按前台js分页插件的要求装进map
+		 */
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("draw", draw);
+		map.put("data", pageLsit);
+		map.put("recordsTotal", recordsTotal);
+		map.put("recordsFiltered",  recordsTotal);
+		
+		return map;
 	}
 
 }

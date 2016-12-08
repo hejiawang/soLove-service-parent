@@ -35,4 +35,12 @@
 		)
 	</insert>
 	
+	<update id="deleteUserInfo">
+		update solove_userInfo set isDelete = 'yes' where userID = #{userID, jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateUserLevel">
+		update solove_userInfo set userLevel = #{userLevel, jdbcType=VARCHAR} where userID = #{userID, jdbcType=INTEGER}
+	</update>
+	
 </mapper>

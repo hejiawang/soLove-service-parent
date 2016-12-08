@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.read.SoLoveHobbyReadDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveHobbyEntity">
+		<id column="hobbyID" property="hobbyID" jdbcType="INTEGER" />
+		<result column="parentHobbyID" property="parentHobbyID" jdbcType="INTEGER" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="iconUrl" property="iconUrl" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="isDelete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="isCurrent" property="isCurrent" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		hobbyID, parentHobbyID, content, iconUrl, sort, isDelete, isCurrent
+	</sql>
+	
+	<sql id="getAllColumnAsA">
+		a.hobbyID, a.parentHobbyID, a.content, a.iconUrl, a.sort, a.isDelete, a.isCurrent
+	</sql>
+	
+	<select id="getHobbyByID" resultMap="BaseResultMap">
+		select
+			<include refid="getAllColumn"/>
+		from solove_hobby
+		where hobbyID = #{hobbyID, ,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getHobbyByUserID" resultMap="BaseResultMap">
+		select
+			<include refid="getAllColumnAsA"/>
+		from solove_hobby a
+		inner join solove_user_hobby b on a.hobbyID = b.hobbyID
+		where b.userID = #{userID, ,jdbcType=INTEGER}
+	</select>
+	
+</mapper>

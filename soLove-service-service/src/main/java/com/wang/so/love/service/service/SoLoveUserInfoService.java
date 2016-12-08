@@ -1,9 +1,11 @@
 package com.wang.so.love.service.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.wang.core.ServiceResult;
 import com.wang.so.love.service.param.SoLoveMateInfoParam;
+import com.wang.so.love.service.param.SoLoveUserDetailInfoParam;
 import com.wang.so.love.service.param.SoLoveUserInfoParam;
 import com.wang.so.love.service.vo.SoLoveUserSimpleInfoVO;
 
@@ -27,6 +29,34 @@ public interface SoLoveUserInfoService {
 	public ServiceResult<Void> addUserInfo(SoLoveUserInfoParam userInfo);
 	
 	/**
+	 * 删除用户
+	 * 
+	 * @param userID 用户ID
+	 * @author HeJiawang
+	 * @date 2016.12.08
+	 */
+	public ServiceResult<Void> deleteUserInfo(Integer userID);
+	
+	/**
+	 * 根据用户ID查看用户的信息——详细信息、照片、爱好、子女父母等所有信息 
+	 * 
+	 * @param userID 用户ID
+	 * @return 
+	 * 		用户信息Map</br>
+	 * 		<li>key:userInfo——用户基本信息</li>
+	 * 		<li>key:userDetail——用户详细信息</li>
+	 * 		<li>key:userImg——用户照片信息</li>
+	 * 		<li>key:userHobby——用户兴趣爱好信息</li>
+	 * 		<li>key:userParent——用户父母信息</li>
+	 * 		<li>key:userChildren——用户子女信息</li>
+	 * 		<li>key:userMate——用户择偶信息</li>
+	 *  
+	 * @author HeJiawang
+	 * @date 2016.12.08
+	 */
+	public ServiceResult<Map<String, Object>> viewUserInfo(Integer userID);
+	
+	/**
 	 * 根据择偶条件筛选信息</br>
 	 * 并进行分页
 	 * 
@@ -37,4 +67,21 @@ public interface SoLoveUserInfoService {
 	 * @date   2016.12.07
 	 */
 	public ServiceResult<List<SoLoveUserSimpleInfoVO>> getUserByMateInfo( SoLoveMateInfoParam mateInfo );
+
+	/**
+	 * 根据条件搜索用户信息</br>
+	 * 并进行分页
+	 * 
+	 * @param param 检索条件
+	 * @param start 分页信息
+	 * @param length 分页信息
+	 * @param draw 分页信息
+	 * 
+	 * @return 适应So love后台管理系统js分页插件的Map
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.08
+	 */
+	public ServiceResult<Map<String,Object>> pageUserInfo(SoLoveUserDetailInfoParam param, Integer start, Integer length, Integer draw);
+
 }

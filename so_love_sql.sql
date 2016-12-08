@@ -153,7 +153,7 @@ CREATE TABLE `solove_hobby` (
   `parentHobbyID` int(11) NOT NULL COMMENT '父hobbyID',
   `content` varchar(50) DEFAULT NULL COMMENT '内容',
   `sort` int(5) NOT NULL DEFAULT '1' COMMENT '排序',
-  `isParent` varchar(5) NOT NULL DEFAULT 'no' COMMENT '是否为父hobby, yes:是  no:否(默认)',
+  `iconUrl` varchar(50) DEFAULT null COMMENT '图标rul',
   `isCurrent` varchar(10) NOT NULL DEFAULT 'normal' COMMENT '当前状态, normal:正常(默认) pause:暂停',
   `isDelete` varchar(5) NOT NULL DEFAULT 'no' COMMENT '是否删除, yes:已删除  no:未删除(默认)',
   PRIMARY KEY (`hobbyID`)
