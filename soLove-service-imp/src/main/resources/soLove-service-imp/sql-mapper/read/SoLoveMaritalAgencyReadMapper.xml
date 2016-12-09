@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.read.SoLoveMaritalAgencyReadDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveMaritalAgencyEntity">
+		<id column="maritalAgencyID" property="maritalAgencyID" jdbcType="INTEGER" />
+		<result column="maritalAgencyName" property="maritalAgencyName" jdbcType="VARCHAR" />
+		<result column="maritalAgencyLogo" property="maritalAgencyLogo" jdbcType="VARCHAR" />
+		<result column="maritalAgencyPhone" property="maritalAgencyPhone" jdbcType="VARCHAR" />
+		<result column="maritalAgencyDetail" property="maritalAgencyDetail" jdbcType="VARCHAR" />
+		<result column="provinceID" property="provinceID" jdbcType="INTEGER" />
+		<result column="provinceName" property="provinceName" jdbcType="VARCHAR" />
+		<result column="cityID" property="cityID" jdbcType="INTEGER" />
+		<result column="cityName" property="cityName" jdbcType="VARCHAR" />
+		<result column="countyID" property="countyID" jdbcType="INTEGER" />
+		<result column="countyName" property="countyName" jdbcType="VARCHAR" />
+		<result column="townID" property="townID" jdbcType="INTEGER" />
+		<result column="townName" property="townName" jdbcType="VARCHAR" />
+		<result column="isCurrent" property="isCurrent" jdbcType="VARCHAR" />
+		<result column="isDelete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="areaName" property="areaName" jdbcType="VARCHAR" />
+		<result column="theNode" property="theNode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		maritalAgencyID, maritalAgencyName, maritalAgencyLogo, maritalAgencyPhone, maritalAgencyDetail,
+		provinceID,provinceName,cityID,cityName,countyID,countyName,townID,townName,
+		areaName, isDelete, isCurrent, theNote
+	</sql>
+	
+	<select id="getMaritalAgencyByID" resultMap="BaseResultMap">
+		select 
+			<include refid="getAllColumn" />
+		from solove_maritalAgency
+		where maritalAgencyID = #{maritalAgencyID, jdbcType=INTEGER}
+	</select>
+	
+</mapper>

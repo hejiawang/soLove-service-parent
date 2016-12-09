@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.write.SoLoveMaritalEmployWriteDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveMaritalEmployEntity">
+		<id column="maritalEmployID" property="maritalEmployID" jdbcType="INTEGER" />
+		<result column="maritalAgencyID" property="maritalAgencyID" jdbcType="INTEGER" />
+		<result column="maritalEmploySex" property="maritalEmploySex" jdbcType="VARCHAR" />
+		<result column="maritalEmployAge" property="maritalEmployAge" jdbcType="INTEGER" />
+		<result column="maritalEmployName" property="maritalEmployName" jdbcType="VARCHAR" />
+		<result column="maritalEmployNick" property="maritalEmployNick" jdbcType="VARCHAR" />
+		<result column="maritalEmployPhone" property="maritalEmployPhone" jdbcType="VARCHAR" />
+		<result column="maritalEmployQQ" property="maritalEmployQQ" jdbcType="VARCHAR" />
+		<result column="maritalEmployWeixin" property="maritalEmployWeixin" jdbcType="VARCHAR" />
+		<result column="maritalEmployImage" property="maritalEmployImage" jdbcType="VARCHAR" />
+		<result column="maritalEmployEvaluation" property="maritalEmployEvaluation" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="isCurrent" property="isCurrent" jdbcType="VARCHAR" />
+		<result column="isDelete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="theNode" property="theNode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		maritalEmployID, maritalAgencyID, maritalEmploySex,
+		maritalEmployAge, maritalEmployName, maritalEmployNick,
+		maritalEmployPhone,maritalEmployQQ,maritalEmployWeixin,
+		maritalEmployImage,maritalEmployEvaluation,sort,
+		isCurrent,isDelete,theNode
+	</sql>
+	
+	<insert id="addMaritalEmploy" parameterType="com.wang.so.love.service.param.SoLoveMaritalEmployParam">
+		insert into solove_maritalEmploy (
+			maritalAgencyID, maritalEmploySex,
+			maritalEmployAge, maritalEmployName, maritalEmployNick,
+			maritalEmployPhone,maritalEmployQQ,maritalEmployWeixin,
+			maritalEmployImage,maritalEmployEvaluation,sort, theNode
+		) values (
+			#{maritalAgencyID}, #{maritalEmploySex},
+			#{maritalEmployAge}, #{maritalEmployName}, #{maritalEmployNick},
+			#{maritalEmployPhone}, #{maritalEmployQQ}, #{maritalEmployWeixin},
+			#{maritalEmployImage}, #{maritalEmployEvaluation}, #{sort}, #{theNode}
+		)
+	</insert>
+	
+	<update id="updateMaritalEmploy" parameterType="com.wang.so.love.service.param.SoLoveMaritalEmployParam">
+		update solove_maritalEmploy set 
+			maritalAgencyID=#{maritalAgencyID}, maritalEmploySex=#{maritalEmploySex},
+			maritalEmployAge=#{maritalEmployAge}, maritalEmployName=#{maritalEmployName}, maritalEmployNick=#{maritalEmployNick},
+			maritalEmployPhone=#{maritalEmployPhone}, maritalEmployQQ=#{maritalEmployQQ}, maritalEmployWeixin=#{maritalEmployWeixin},
+			maritalEmployImage=#{maritalEmployImage}, maritalEmployEvaluation=#{maritalEmployEvaluation}, sort=#{sort}, theNode=#{theNode}
+		where maritalEmployID = #{maritalEmployID, jdbcType=INTEGER}
+	</update>
+	
+	<update id="deleteMaritalEmploy">
+		update solove_maritalEmploy 
+		set isDelete = 'yes' 
+		where maritalEmployID = #{maritalEmployID, jdbcType=INTEGER}
+	</update>
+	
+</mapper>

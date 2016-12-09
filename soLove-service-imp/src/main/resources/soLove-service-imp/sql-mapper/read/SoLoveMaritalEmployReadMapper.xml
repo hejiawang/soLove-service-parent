@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.read.SoLoveMaritalEmployReadDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveMaritalEmployEntity">
+		<id column="maritalEmployID" property="maritalEmployID" jdbcType="INTEGER" />
+		<result column="maritalAgencyID" property="maritalAgencyID" jdbcType="INTEGER" />
+		<result column="maritalEmploySex" property="maritalEmploySex" jdbcType="VARCHAR" />
+		<result column="maritalEmployAge" property="maritalEmployAge" jdbcType="INTEGER" />
+		<result column="maritalEmployName" property="maritalEmployName" jdbcType="VARCHAR" />
+		<result column="maritalEmployNick" property="maritalEmployNick" jdbcType="VARCHAR" />
+		<result column="maritalEmployPhone" property="maritalEmployPhone" jdbcType="VARCHAR" />
+		<result column="maritalEmployQQ" property="maritalEmployQQ" jdbcType="VARCHAR" />
+		<result column="maritalEmployWeixin" property="maritalEmployWeixin" jdbcType="VARCHAR" />
+		<result column="maritalEmployImage" property="maritalEmployImage" jdbcType="VARCHAR" />
+		<result column="maritalEmployEvaluation" property="maritalEmployEvaluation" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="isCurrent" property="isCurrent" jdbcType="VARCHAR" />
+		<result column="isDelete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="theNode" property="theNode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		maritalEmployID, maritalAgencyID, maritalEmploySex,
+		maritalEmployAge, maritalEmployName, maritalEmployNick,
+		maritalEmployPhone,maritalEmployQQ,maritalEmployWeixin,
+		maritalEmployImage,maritalEmployEvaluation,sort,
+		isCurrent,isDelete,theNode
+	</sql>
+	
+	<select id="getMaritalEmploy" resultType="com.wang.so.love.service.vo.SoLoveMaritalEmployVO">
+		select
+			a.maritalEmployID, a.maritalAgencyID, a.maritalEmploySex,
+			a.maritalEmployAge, a.maritalEmployName, a.maritalEmployNick,
+			a.maritalEmployPhone, a.maritalEmployQQ, a.maritalEmployWeixin,
+			a.maritalEmployImage, a.maritalEmployEvaluation, a.sort,
+			a.isCurrent, a.isDelete, a.theNode,
+			b.maritalAgencyName, b.maritalAgencyLogo, 
+			b.maritalAgencyPhone, b.maritalAgencyDetail,
+			b.provinceID, b.provinceName, b.cityID, b.cityName,
+			b.countyID, b.countyName, b.townID, b.townName,
+			b.areaName
+		from solove_maritalEmploy a
+		inner join solove_maritalAgency b on a.maritalAgencyID = b.maritalAgencyID
+		where a.maritalEmployID = #{maritalEmployID, jdbcType=INTEGER}
+	</select>
+	
+</mapper>
