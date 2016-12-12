@@ -1,8 +1,12 @@
 积分制——分享故事、评论、完善信息、参加活动等能够获得积分，凑够一定数量的积分能够免费查看一位用户的信息
 
+fragment:
+	http://blog.csdn.net/guolin_blog/article/details/13171191
 
-http://blog.csdn.net/guolin_blog/article/details/13171191
+瀑布流：
+	http://blog.csdn.net/jdsjlzx/article/details/45060333
+	http://shangxun.iteye.com/blog/1938130
 
-http://blog.csdn.net/jdsjlzx/article/details/45060333
-http://shangxun.iteye.com/blog/1938130
+slidingmenu:
+	https://github.com/yueyueniao2012/SlidingMenu
 
