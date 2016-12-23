@@ -41,7 +41,7 @@ CREATE TABLE `solove_userDetailInfo` (
   `userBirthday` date DEFAULT NULL COMMENT '生日',
   
   `userEvaluation` varchar(500) DEFAULT NULL COMMENT '自我评价',
-  `userLovePlan` varchar(50) DEFAULT NULL COMMENT '爱情规划',
+  `userLovePlan` varchar(500) DEFAULT NULL COMMENT '爱情规划',
   `theNode` varchar(255) DEFAULT NULL COMMENT '备注',
   
   `userSchool` varchar(50) DEFAULT NULL COMMENT '毕业学校',

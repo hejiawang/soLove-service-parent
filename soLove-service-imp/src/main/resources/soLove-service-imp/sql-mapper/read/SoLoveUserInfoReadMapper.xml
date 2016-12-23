@@ -91,20 +91,29 @@
 	
 	<select id="pageUserInfo" parameterType="java.util.Map" resultType="java.util.Map">
 		select 
-			a.userID as userID
+			a.userID as userID,
+			a.userLevel as userLevel,
+			a.userIntegralTotal as userIntegralTotal,
+			a.getChoiceNum as getChoiceNum, a.setChoiceNum as setChoiceNum,
+			a.userChoiceTotal as userChoiceTotal, a.userChoiceNum as userChoiceNum,
+			b.userSex as userSex, b.userAge as userAge, b.userName as userName,
+			b.provinceName as provinceName, b.cityName as cityName, b.countyName as countyName, b.townName as townName
 		from soLove_userInfo a
 		inner join solove_userDetailInfo b
 		<where>
 			a.isCurrent = 'normal' 
 			and a.isDelete = 'no'
-			<if test=" userID!=null ">
+			<if test=" userDetail.userID!=null ">
 				and a.userID = #{userDetail.userID, jdbcType=VARCHAR}
+			</if>
+			<if test=" userDetail.userName!=null and userDetail.userName!='' ">
+				and a.userName = #{userDetail.userName, jdbcType=VARCHAR}
 			</if>
 		</where>
 		limit #{start, jdbcType=INTEGER}, #{end, jdbcType=INTEGER}
 	</select>
 	
-	<select id="pageUserInfo" parameterType="com.wang.so.love.service.param.SoLoveUserDetailInfoParam" resultType="java.lang.Integer">
+	<select id="pageUserInfoTotal" parameterType="com.wang.so.love.service.param.SoLoveUserDetailInfoParam" resultType="java.lang.Integer">
 		select 
 			count(1)
 		from soLove_userInfo a
@@ -114,6 +123,9 @@
 			and a.isDelete = 'no'
 			<if test=" userID!=null ">
 				and a.userID = #{userID, jdbcType=VARCHAR}
+			</if>
+			<if test=" userName!=null and userName!='' ">
+				and a.userName = #{userName, jdbcType=VARCHAR}
 			</if>
 		</where>
 	</select>
