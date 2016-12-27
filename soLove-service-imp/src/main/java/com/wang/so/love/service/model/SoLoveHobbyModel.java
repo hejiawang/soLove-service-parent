@@ -3,7 +3,11 @@ package com.wang.so.love.service.model;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.Assert;
 
 import com.wang.core.exception.BusinessException;
@@ -32,6 +36,12 @@ public class SoLoveHobbyModel {
 	 */
 	@Autowired
 	private SoLoveHobbyWriteDao SoLoveHobbyWriteDao;
+	
+	/**
+	 * 事务
+	 */
+	@Autowired
+	private DataSourceTransactionManager transactionManagerMember;
 	
 	/**
 	 * 新增兴趣爱好
@@ -111,6 +121,57 @@ public class SoLoveHobbyModel {
 		if( userID == null ) throw new BusinessException("用户ID不能为空");
 		
 		return soLoveHobbyReadDao.getHobbyByUserID(userID);
+	}
+
+	/**
+	 * 获取所有兴趣爱好
+	 * 
+	 * @author HeJiawang
+	 * @date  2016.12.27
+	 */
+	public List<SoLoveHobbyEntity> getAllHobby() {
+		Assert.notNull(soLoveHobbyReadDao, "Property 'soLoveHobbyReadDao' is required.");
+		
+		return soLoveHobbyReadDao.getAllHobby();
+	}
+	
+	/**
+	 * 用户兴趣爱好维护
+	 * 
+	 * @param hobbyIDs 兴趣爱好ID集合
+	 * @param userID 用户ID
+	 */
+	public Boolean modifyUserHobby(Integer userID, List<Integer> hobbyIDs) {
+		Assert.notNull(transactionManagerMember, "Property 'transactionManagerMember' is required.");
+		Assert.notNull(SoLoveHobbyWriteDao, "Property 'SoLoveHobbyWriteDao' is required.");
+		if( userID == null ) throw new BusinessException("用户ID不能为空");
+		
+		//开始事务
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		TransactionStatus status = transactionManagerMember.getTransaction(def);
+		try {
+			/**
+			 * 1、删除用户兴趣爱好表中已有的关联数据
+			 */
+			SoLoveHobbyWriteDao.deleteUserHobby(userID);
+			
+			/**
+			 * 2、新增新的兴趣爱好
+			 */
+			for( Integer hobbyID : hobbyIDs ){
+				SoLoveHobbyWriteDao.addUserHobby(userID, hobbyID);
+			}
+			
+			transactionManagerMember.commit(status);
+			return true;
+		} catch ( Exception e ){
+			/**
+			 * 事务回滚
+			 */
+			transactionManagerMember.rollback(status);
+			throw new BusinessException("新增用户失败!");
+		}
 	}
 
 }

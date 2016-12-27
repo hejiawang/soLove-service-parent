@@ -43,4 +43,18 @@
 		update solove_userInfo set userLevel = #{userLevel, jdbcType=VARCHAR} where userID = #{userID, jdbcType=INTEGER}
 	</update>
 	
+	<update id="updateUserInfo" parameterType="com.wang.so.love.service.param.SoLoveUserInfoParam">
+		update solove_userInfo set
+			getChoiceNum = #{getChoiceNum},
+			setChoiceNum = #{setChoiceNum},
+			userIntegralTotal = #{userIntegralTotal},
+			userChoiceTotal = #{userChoiceTotal},
+			userChoiceNum = #{userChoiceNum},
+			userMaritalSuccess = #{userMaritalSuccess},
+			userLevel = #{userLevel},
+			registerDate = #{registerDate},
+			registerType = #{registerType}
+		where userID = #{userID, jdbcType=INTEGER}
+	</update>
+	
 </mapper>

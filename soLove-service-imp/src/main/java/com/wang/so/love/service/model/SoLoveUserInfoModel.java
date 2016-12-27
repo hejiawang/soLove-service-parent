@@ -338,4 +338,24 @@ public class SoLoveUserInfoModel {
 		return map;
 	}
 
+	/**
+	 * 修改用户基本信息
+	 * 
+	 * @param userInfo 用户基本信息参数
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.27
+	 */
+	public Boolean updateUserInfo(SoLoveUserInfoParam userInfo) {
+		Assert.notNull(soLoveUserInfoWriteDao, "Property 'soLoveUserInfoWriteDao' is required.");
+		if( userInfo.getUserID() == null ) throw new BusinessException("用户ID不能为空");
+		
+		Integer result = soLoveUserInfoWriteDao.updateUserInfo(userInfo);
+		if( result >= 1 ){
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 }

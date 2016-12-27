@@ -36,4 +36,16 @@
 		where hobbyID = #{hobbyID, ,jdbcType=INTEGER}
 	</update>
 	
+	<delete id="deleteUserHobby">
+		delete from solove_user_hobby where userID = #{userID, ,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="addUserHobby">
+		insert into solove_user_hobby(
+			userID, hobbyID
+		) values (
+			#{userID, ,jdbcType=INTEGER}, #{hobbyID, ,jdbcType=INTEGER}
+		)
+	</insert>
+	
 </mapper>

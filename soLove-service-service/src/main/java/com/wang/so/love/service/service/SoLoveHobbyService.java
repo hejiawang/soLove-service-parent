@@ -48,4 +48,23 @@ public interface SoLoveHobbyService {
 	 * @param userID 用户ID
 	 */
 	public ServiceResult<List<SoLoveHobbyEntity>> getHobbyByUserID( Integer userID );
+	
+	/**
+	 * 获取所有兴趣爱好
+	 * 
+	 * @author HeJiawang
+	 * @date  2016.12.27
+	 */
+	public ServiceResult<List<SoLoveHobbyEntity>> getAllHobby();
+
+	/**
+	 * 用户兴趣爱好维护
+	 * 
+	 * @param hobbyIDs 兴趣爱好ID集合
+	 * @param userID 用户ID
+	 * 
+	 * @author HeJiawang
+	 * @date  2016.12.27
+	 */
+	public ServiceResult<Void> modifyUserHobby(Integer userID, List<Integer> hobbyIDs);
 }

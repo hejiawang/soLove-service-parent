@@ -35,4 +35,14 @@ public interface SoLoveParentInfoWriteDao {
 	 */
 	Integer deleteParentInfo(@Param("parentID")Integer parentID);
 
+	/**
+	 * 删除用户的父母信息
+	 * @param userID 用户ID
+	 * @return
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.06
+	 */
+	Integer deleteUserParent(@Param("userID")Integer userID);
+
 }

@@ -166,4 +166,58 @@ public class SoLoveHobbyServiceImp implements SoLoveHobbyService {
 		return serviceResult;
 	}
 
+
+	/**
+	 * 用户兴趣爱好维护
+	 * 
+	 * @param hobbyIDs 兴趣爱好ID集合
+	 * @param userID 用户ID
+	 */
+	@Override
+	public ServiceResult<Void> modifyUserHobby(Integer userID, List<Integer> hobbyIDs) {
+		Assert.notNull(soLoveHobbyModel, "Property 'soLoveHobbyModel' is required.");
+		ServiceResult<Void> serviceResult = new ServiceResult<Void>();
+		try {
+			Boolean isSuccess = soLoveHobbyModel.modifyUserHobby(userID, hobbyIDs);
+			if( isSuccess ){
+				serviceResult.setMessage("信息维护成功");
+			} else {
+				serviceResult.setMessage("信息维护失败");
+			}
+			serviceResult.setSuccess(isSuccess);
+		} catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		return serviceResult;
+	}
+
+	/**
+	 * 获取所有兴趣爱好
+	 * 
+	 * @author HeJiawang
+	 * @date  2016.12.27
+	 */
+	@Override
+	public ServiceResult<List<SoLoveHobbyEntity>> getAllHobby() {
+		Assert.notNull(soLoveHobbyModel, "Property 'soLoveHobbyModel' is required.");
+		ServiceResult<List<SoLoveHobbyEntity>> serviceResult = new ServiceResult<List<SoLoveHobbyEntity>>();
+		try {
+			List<SoLoveHobbyEntity> hobbyList = soLoveHobbyModel.getAllHobby();
+			serviceResult.setResult(hobbyList);
+		} catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		return serviceResult;
+	}
+
 }

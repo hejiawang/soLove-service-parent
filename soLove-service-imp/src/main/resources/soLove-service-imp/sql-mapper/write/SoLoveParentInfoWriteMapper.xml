@@ -33,4 +33,8 @@
 		delete from solove_parentInfo where parentID = #{parentID ,jdbcType=INTEGER}
 	</delete>
 	
+	<delete id="deleteUserParent">
+		delete from solove_parentInfo where userID = #{userID ,jdbcType=INTEGER}
+	</delete>
+	
 </mapper>

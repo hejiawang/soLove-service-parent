@@ -41,4 +41,15 @@ public interface SoLoveUserInfoWriteDao {
 	 */
 	Integer updateUserLevel(@Param("userLevel")String userLevel, @Param("userID")Integer userID);
 
+
+	/**
+	 * 修改用户基本信息
+	 * 
+	 * @param userInfo 用户基本信息参数
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.27
+	 */
+	Integer updateUserInfo(SoLoveUserInfoParam userInfo);
+
 }

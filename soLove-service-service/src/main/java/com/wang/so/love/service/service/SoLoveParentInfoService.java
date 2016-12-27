@@ -53,4 +53,14 @@ public interface SoLoveParentInfoService {
 	 * @return 该用户的所有父母信息
 	 */
 	public ServiceResult<List<SoLoveParentInfoEntity>> getParentInfoByUserID(Integer userID);
+
+	/**
+	 * 修改用户父母信息
+	 * 
+	 * @return ServiceResult
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.27
+	 */
+	public ServiceResult<Void> modifyUserParent(List<SoLoveParentInfoParam> parentInfoList, Integer userID);
 }

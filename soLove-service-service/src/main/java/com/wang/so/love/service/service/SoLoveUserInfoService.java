@@ -84,4 +84,14 @@ public interface SoLoveUserInfoService {
 	 */
 	public ServiceResult<Map<String,Object>> pageUserInfo(SoLoveUserDetailInfoParam param, Integer start, Integer length, Integer draw);
 
+	/**
+	 * 修改用户基本信息
+	 * 
+	 * @param userInfo 用户基本信息参数
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.27
+	 */
+	public ServiceResult<Void> updateUserInfo(SoLoveUserInfoParam userInfo);
+
 }

@@ -32,4 +32,12 @@ public interface SoLoveHobbyReadDao {
 	 */
 	List<SoLoveHobbyEntity> getHobbyByUserID(@Param("userID")Integer userID);
 
+	/**
+	 * 获取所有兴趣爱好
+	 * 
+	 * @author HeJiawang
+	 * @date  2016.12.27
+	 */
+	List<SoLoveHobbyEntity> getAllHobby();
+
 }

@@ -205,4 +205,37 @@ public class SoLoveUserInfoServiceImp implements SoLoveUserInfoService {
 		return serviceResult;
 	}
 
+	/**
+	 * 修改用户基本信息
+	 * 
+	 * @param userInfo 用户基本信息参数
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.27
+	 */
+	@Override
+	public ServiceResult<Void> updateUserInfo(SoLoveUserInfoParam userInfo) {
+		Assert.notNull(soLoveUserInfoModel, "Property 'soLoveUserInfoModel' is required.");
+		
+		ServiceResult<Void> serviceResult = new ServiceResult<Void>();
+		try{
+			Boolean isSuccess = soLoveUserInfoModel.updateUserInfo(userInfo);
+			if( isSuccess ){
+				serviceResult.setMessage("修改成功");
+			} else {
+				serviceResult.setMessage("修改失败");
+			}
+			serviceResult.setSuccess(isSuccess);
+		}catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		
+		return serviceResult;
+	}
+
 }

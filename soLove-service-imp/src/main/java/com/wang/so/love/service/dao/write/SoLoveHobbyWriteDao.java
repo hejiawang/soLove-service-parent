@@ -38,4 +38,19 @@ public interface SoLoveHobbyWriteDao {
 	 */
 	Integer deleteHobby(@Param("hobbyID")Integer hobbyID);
 
+	/**
+	 * 删除用户兴趣爱好表中已有的关联数据
+	 * 
+	 * @param userID 用户ID
+	 */
+	Integer deleteUserHobby(@Param("userID")Integer userID);
+
+	/**
+	 * 新增新的用户兴趣爱好关联信息
+	 * 
+	 * @param userID 用户ID
+	 * @param hobbyID 兴趣爱好ID
+	 */
+	Integer addUserHobby(@Param("userID")Integer userID, @Param("hobbyID")Integer hobbyID);
+
 }

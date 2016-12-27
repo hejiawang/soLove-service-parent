@@ -176,4 +176,36 @@ public class SoLoveParentInfoServiceImp implements SoLoveParentInfoService {
 		return serviceResult;
 	}
 
+	/**
+	 * 修改用户父母信息
+	 * 
+	 * @return ServiceResult
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.27
+	 */
+	@Override
+	public ServiceResult<Void> modifyUserParent(List<SoLoveParentInfoParam> parentInfoList, Integer userID) {
+		Assert.notNull(soLoveParentInfoModel, "Property 'soLoveParentInfoModel' is required.");
+		ServiceResult<Void> serviceResult = new ServiceResult<Void>();
+		
+		try {
+			Boolean isSuccess = soLoveParentInfoModel.modifyUserParent(parentInfoList, userID);
+			if( isSuccess ){
+				serviceResult.setMessage("修改信息成功");
+			} else {
+				serviceResult.setMessage("修改信息失败");
+			}
+			serviceResult.setSuccess(isSuccess);
+		} catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		return serviceResult;
+	}
+
 }
