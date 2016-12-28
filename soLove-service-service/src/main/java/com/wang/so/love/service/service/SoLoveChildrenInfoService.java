@@ -53,4 +53,14 @@ public interface SoLoveChildrenInfoService {
 	 * @return 该用户的所有子女信息
 	 */
 	public ServiceResult<List<SoLoveChildrenInfoEntity>> getChildrenInfoByUserID(Integer userID);
+
+	/**
+	 * 修改用户子女信息
+	 * 
+	 * @return ServiceResult
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.28
+	 */
+	public ServiceResult<Void> modifyUserChildren(List<SoLoveChildrenInfoParam> childrenInfoList, Integer userID);
 }

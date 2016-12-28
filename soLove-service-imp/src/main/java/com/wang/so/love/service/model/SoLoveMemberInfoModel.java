@@ -10,6 +10,8 @@ import org.springframework.util.Assert;
 
 import com.wang.core.exception.BusinessException;
 import com.wang.so.love.service.dao.write.SoLoveUserInfoWriteDao;
+import com.wang.so.love.service.entity.SoLoveMemberInfoEntity;
+import com.wang.so.love.service.dao.read.SoLoveMemberInfoReadDao;
 import com.wang.so.love.service.dao.write.SoLoveMemberInfoWriteDao;
 import com.wang.so.love.service.param.SoLoveMemberInfoParam;
 
@@ -39,6 +41,12 @@ public class SoLoveMemberInfoModel {
 	 */
 	@Autowired
 	private SoLoveMemberInfoWriteDao soLoveMemberInfoWriteDao;
+	
+	/**
+	 * soLoveMemberInfoReadDao
+	 */
+	@Autowired
+	private SoLoveMemberInfoReadDao soLoveMemberInfoReadDao;
 	
 	/**
 	 * 为用户开通会员
@@ -82,6 +90,22 @@ public class SoLoveMemberInfoModel {
 			throw new BusinessException("新增用户失败!");
 		}
 		
+	}
+
+	/**
+	 * 会员信息查看
+	 * 
+	 * @param userID 用户ID
+	 * @return 会员信息
+	 * 
+	 * @author HeJiawang
+	 * @date 2016.12.28
+	 */
+	public SoLoveMemberInfoEntity getMemberInfoByUserID(Integer userID) {
+		Assert.notNull(soLoveMemberInfoReadDao, "Property 'soLoveMemberInfoReadDao' is required.");
+		if( userID == null ) throw new BusinessException("用户ID不能为空");
+		
+		return soLoveMemberInfoReadDao.getMemberInfoByUserID(userID);
 	}
 
 }

@@ -35,4 +35,13 @@ public interface SoLoveChildrenInfoWriteDao {
 	 */
 	Integer deleteChildrenInfo(@Param("childrenID")Integer childrenID);
 
+	/**
+	 * 删除用户子女信息
+	 * 
+	 * @param userID 用户ID
+	 * @author HeJiawang
+	 * @date   2016.12.28
+	 */
+	Integer deleteUserChildren(@Param("userID")Integer userID);
+
 }

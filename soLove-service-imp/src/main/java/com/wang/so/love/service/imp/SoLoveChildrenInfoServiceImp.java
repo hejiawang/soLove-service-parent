@@ -176,4 +176,36 @@ public class SoLoveChildrenInfoServiceImp implements SoLoveChildrenInfoService {
 		return serviceResult;
 	}
 
+	/**
+	 * 修改用户子女信息
+	 * 
+	 * @return ServiceResult
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.28
+	 */
+	@Override
+	public ServiceResult<Void> modifyUserChildren(List<SoLoveChildrenInfoParam> childrenInfoList, Integer userID) {
+		Assert.notNull(soLoveChildrenInfoModel, "Property 'soLoveChildrenInfoModel' is required.");
+		ServiceResult<Void> serviceResult = new ServiceResult<Void>();
+		
+		try {
+			Boolean isSuccess = soLoveChildrenInfoModel.modifyUserChildren(childrenInfoList, userID);
+			if( isSuccess ){
+				serviceResult.setMessage("修改信息成功");
+			} else {
+				serviceResult.setMessage("修改信息失败");
+			}
+			serviceResult.setSuccess(isSuccess);
+		} catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		return serviceResult;
+	}
+
 }

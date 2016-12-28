@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 import com.wang.core.Constants;
 import com.wang.core.ServiceResult;
 import com.wang.core.exception.BusinessException;
+import com.wang.so.love.service.entity.SoLoveMemberInfoEntity;
 import com.wang.so.love.service.model.SoLoveMemberInfoModel;
 import com.wang.so.love.service.param.SoLoveMemberInfoParam;
 import com.wang.so.love.service.service.SoLoveMemberInfoService;
@@ -50,6 +51,33 @@ public class SoLoveMemberInfoServiceImp implements SoLoveMemberInfoService {
 				serviceResult.setMessage("开通会员失败");
 			}
 			serviceResult.setSuccess(isSuccess);
+		} catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		return serviceResult;
+	}
+
+	/**
+	 * 会员信息查看
+	 * 
+	 * @param userID 用户ID
+	 * @return 会员信息
+	 * 
+	 * @author HeJiawang
+	 * @date 2016.12.28
+	 */
+	@Override
+	public ServiceResult<SoLoveMemberInfoEntity> getMemberInfoByUserID(Integer userID) {
+		Assert.notNull(soLoveMemberInfoModel, "Property 'soLoveMemberInfoModel' is required.");
+		ServiceResult<SoLoveMemberInfoEntity> serviceResult = new ServiceResult<SoLoveMemberInfoEntity>();
+		try {
+			SoLoveMemberInfoEntity memberInfo = soLoveMemberInfoModel.getMemberInfoByUserID(userID);
+			serviceResult.setResult(memberInfo);
 		} catch (BusinessException e) {
 			serviceResult.setMessage(e.getMessage());
 			serviceResult.setSuccess(false);

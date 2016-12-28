@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.Assert;
 
 import com.wang.core.exception.BusinessException;
@@ -33,6 +37,12 @@ public class SoLoveChildrenInfoModel {
 	 */
 	@Autowired
 	private SoLoveChildrenInfoWriteDao soLoveChildrenWriteReadDao;
+	
+	/**
+	 * 事务
+	 */
+	@Autowired
+	private DataSourceTransactionManager transactionManagerMember;
 	
 	/**
 	 * 新增用户子女信息
@@ -114,6 +124,47 @@ public class SoLoveChildrenInfoModel {
 		if( userID == null ) throw new BusinessException("用户信息ID不能为空");
 		
 		return soLoveChildrenInfoReadDao.getChildrenInfoByUserID(userID);
+	}
+
+	/**
+	 * 修改用户子女信息
+	 * 
+	 * @return ServiceResult
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.28
+	 */
+	public Boolean modifyUserChildren(List<SoLoveChildrenInfoParam> childrenInfoList, Integer userID) {
+		Assert.notNull(transactionManagerMember, "Property 'transactionManagerMember' is required.");
+		Assert.notNull(soLoveChildrenWriteReadDao, "Property 'soLoveChildrenWriteReadDao' is required.");
+		if( userID == null ) throw new BusinessException("用户信息ID不能为空");
+		
+		//开始事务
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		TransactionStatus status = transactionManagerMember.getTransaction(def);
+		try {
+			/**
+			 * 1、删除老记录
+			 */
+			soLoveChildrenWriteReadDao.deleteUserChildren(userID);
+			
+			/**
+			 * 2、新增新记录
+			 */
+			for( SoLoveChildrenInfoParam childrenInfo : childrenInfoList ){
+				soLoveChildrenWriteReadDao.insertChildrenInfo(childrenInfo);
+			}
+			
+			transactionManagerMember.commit(status);
+			return true;
+		} catch ( Exception e ){
+			/**
+			 * 事务回滚
+			 */
+			transactionManagerMember.rollback(status);
+			throw new BusinessException("新增用户失败!");
+		}
 	}
 
 }
