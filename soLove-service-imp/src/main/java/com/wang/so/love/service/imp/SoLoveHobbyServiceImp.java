@@ -1,6 +1,7 @@
 package com.wang.so.love.service.imp;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -209,6 +210,63 @@ public class SoLoveHobbyServiceImp implements SoLoveHobbyService {
 		try {
 			List<SoLoveHobbyEntity> hobbyList = soLoveHobbyModel.getAllHobby();
 			serviceResult.setResult(hobbyList);
+		} catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		return serviceResult;
+	}
+
+	/**
+	 * 分页获取兴趣爱好信息
+	 * 
+	 * @param param 查询信息
+	 * @param start 分页信息
+	 * @param length 分页信息
+	 * @param draw 分页信息
+	 * @return
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.29
+	 */
+	@Override
+	public ServiceResult<Map<String, Object>> pageHobby(SoLoveHobbyParam param, Integer start, Integer length, Integer draw) {
+		Assert.notNull(soLoveHobbyModel, "Property 'soLoveHobbyModel' is required.");
+		ServiceResult<Map<String, Object>> serviceResult = new ServiceResult<Map<String, Object>>();
+		try {
+			Map<String, Object> resultMap = soLoveHobbyModel.pageHobby(param, start, length, draw);
+			serviceResult.setResult(resultMap);
+		} catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		return serviceResult;
+	}
+
+	/**
+	 * 获取兴趣爱好树
+	 * 
+	 * @param id 父兴趣爱好ID
+	 * @return
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.29
+	 */
+	@Override
+	public ServiceResult<List<SoLoveHobbyParam>> getHobbyTreeData(Integer parentHobbyID) {
+		Assert.notNull(soLoveHobbyModel, "Property 'soLoveHobbyModel' is required.");
+		ServiceResult<List<SoLoveHobbyParam>> serviceResult = new ServiceResult<List<SoLoveHobbyParam>>();
+		try {
+			List<SoLoveHobbyParam> list = soLoveHobbyModel.getHobbyTreeData(parentHobbyID);
+			serviceResult.setResult(list);
 		} catch (BusinessException e) {
 			serviceResult.setMessage(e.getMessage());
 			serviceResult.setSuccess(false);

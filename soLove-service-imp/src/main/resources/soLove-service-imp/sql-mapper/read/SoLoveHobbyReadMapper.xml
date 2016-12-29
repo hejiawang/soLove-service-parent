@@ -42,4 +42,39 @@
 		where isDelete = 'no'
 	</select>
 	
+	<select id="pageHobby" parameterType="java.util.Map" resultType="java.util.Map">
+		select
+			a.hobbyID, a.parentHobbyID, a.content, a.iconUrl, a.sort, a.isDelete, a.isCurrent,
+			b.content as hobbyParentName
+		from solove_hobby a
+		inner join solove_hobby b on a.parentHobbyID = b.hobbyID
+		<where>
+			a.isDelete = "no"
+			<if test=" hobby.parentHobbyID!=null and hobby.parentHobbyID!='' ">
+				and a.parentHobbyID = #{hobby.parentHobbyID, jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by sort
+		limit #{start, jdbcType=INTEGER}, #{end, jdbcType=INTEGER}
+	</select>
+	
+	<select id="pageHobbyTotal" parameterType="com.wang.so.love.service.param.SoLoveHobbyParam" resultType="java.lang.Integer">
+		select count(1)
+		from soLove_hobby a
+		<where>
+			a.isDelete = "no"
+			<if test=" hobby.parentHobbyID!=null and hobby.parentHobbyID!='' ">
+				and a.parentHobbyID = #{hobby.parentHobbyID, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getHobbyTreeData" resultType="com.wang.so.love.service.param.SoLoveHobbyParam">
+		select
+			a.hobbyID, a.parentHobbyID, a.content, a.iconUrl, a.sort, a.isDelete, a.isCurrent,
+			(select count(1) from solove_hobby b where b.parentHobbyID = a.hobbyID) as isParent
+		from solove_hobby a
+		where a.isDelete = 'no' and a.parentHobbyID = #{parentHobbyID, jdbcType=VARCHAR}
+	</select>
+	
 </mapper>

@@ -1,6 +1,8 @@
 package com.wang.so.love.service.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -172,6 +174,64 @@ public class SoLoveHobbyModel {
 			transactionManagerMember.rollback(status);
 			throw new BusinessException("新增用户失败!");
 		}
+	}
+
+	/**
+	 * 分页获取兴趣爱好信息
+	 * 
+	 * @param param 查询信息
+	 * @param start 分页信息
+	 * @param length 分页信息
+	 * @param draw 分页信息
+	 * @return
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.29
+	 */
+	public Map<String, Object> pageHobby(SoLoveHobbyParam param, Integer start, Integer length, Integer draw) {
+		Assert.notNull(soLoveHobbyReadDao, "Property 'soLoveHobbyReadDao' is required.");
+		if( start==null || length==null || draw==null ) throw new BusinessException("分页信息不能为空");
+		
+		/**
+		 * 将参数装进map
+		 */
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		paramMap.put( "hobby", param );
+		paramMap.put( "start", start );
+		paramMap.put( "end", start+length );
+		
+		/**
+		 * 获取数据
+		 */
+		List<Map<String,Object>> pageLsit = soLoveHobbyReadDao.pageHobby(paramMap);
+		Integer recordsTotal = soLoveHobbyReadDao.pageHobbyTotal(param);
+		
+		/**
+		 * 将结果按前台js分页插件的要求装进map
+		 */
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("draw", draw);
+		map.put("data", pageLsit);
+		map.put("recordsTotal", recordsTotal);
+		map.put("recordsFiltered",  recordsTotal);
+		
+		return map;
+	}
+
+	/**
+	 * 获取兴趣爱好树
+	 * 
+	 * @param id 父兴趣爱好ID
+	 * @return
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.29
+	 */
+	public List<SoLoveHobbyParam> getHobbyTreeData(Integer parentHobbyID) {
+		Assert.notNull(soLoveHobbyReadDao, "Property 'soLoveHobbyReadDao' is required.");
+		if( parentHobbyID == null ) throw new BusinessException("父ID不能为空");
+		
+		return soLoveHobbyReadDao.getHobbyTreeData(parentHobbyID);
 	}
 
 }

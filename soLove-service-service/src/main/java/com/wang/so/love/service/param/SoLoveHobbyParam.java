@@ -49,6 +49,19 @@ public class SoLoveHobbyParam implements Serializable {
 	 * 是否删除, yes:已删除 no:未删除(默认)
 	 */
 	private String isDelete;
+	
+	/**
+	 * 是否为父兴趣爱好
+	 */
+	private Integer isParent;
+
+	public Integer getIsParent() {
+		return isParent;
+	}
+
+	public void setIsParent(Integer isParent) {
+		this.isParent = isParent;
+	}
 
 	public Integer getHobbyID() {
 		return hobbyID;

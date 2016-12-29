@@ -1,11 +1,13 @@
 package com.wang.so.love.service.dao.read;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.wang.core.repository.myBatis.MyBatisRepository;
 import com.wang.so.love.service.entity.SoLoveHobbyEntity;
+import com.wang.so.love.service.param.SoLoveHobbyParam;
 
 /**
  * 兴趣爱好——读
@@ -39,5 +41,38 @@ public interface SoLoveHobbyReadDao {
 	 * @date  2016.12.27
 	 */
 	List<SoLoveHobbyEntity> getAllHobby();
+
+	/**
+	 * 分页获取兴趣爱好
+	 * 
+	 * @param paramMap 查询map
+	 * @return
+	 * 
+	 * @author HeJiawang
+	 * @date  2016.12.29
+	 */
+	List<Map<String, Object>> pageHobby(Map<String, Object> paramMap);
+
+	/**
+	 * 获取兴趣爱好分页条数
+	 * 
+	 * @param paramMap 查询map
+	 * @return
+	 * 
+	 * @author HeJiawang
+	 * @date  2016.12.29
+	 */
+	Integer pageHobbyTotal(SoLoveHobbyParam param);
+
+	/**
+	 * 获取兴趣爱好信息树
+	 * 
+	 * @param parentHobbyID 父兴趣爱好ID
+	 * @return
+	 * 
+	 * @author HeJiawang
+	 * @date  2016.12.29
+	 */
+	List<SoLoveHobbyParam> getHobbyTreeData(@Param("parentHobbyID")Integer parentHobbyID);
 
 }
