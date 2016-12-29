@@ -64,6 +64,20 @@ public class SoLoveAreaParam implements Serializable {
 	 * 备注
 	 */
 	private String theNote;
+	
+	/**
+	 * 是否为父地区</br>
+	 * 大于0为父地区
+	 */
+	private Integer isParent;
+
+	public Integer getIsParent() {
+		return isParent;
+	}
+
+	public void setIsParent(Integer isParent) {
+		this.isParent = isParent;
+	}
 
 	public Integer getAreaID() {
 		return areaID;
