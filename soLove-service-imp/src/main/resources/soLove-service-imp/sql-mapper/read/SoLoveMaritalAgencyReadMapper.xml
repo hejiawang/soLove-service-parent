@@ -35,4 +35,29 @@
 		where maritalAgencyID = #{maritalAgencyID, jdbcType=INTEGER}
 	</select>
 	
+	<select id="pageMaritalAgency" parameterType="java.util.Map" resultType="java.util.Map">
+		select 
+			<include refid="getAllColumn" />
+		from solove_maritalAgency
+		<where>
+			a.isDelete = "no"
+			<if test=" maritalAgency.maritalAgencyName!=null and maritalAgency.maritalAgencyName!='' ">
+				and maritalAgencyName like %${maritalAgency.maritalAgencyName}%
+			</if>
+		</where>
+		limit #{start, jdbcType=INTEGER}, #{end, jdbcType=INTEGER}
+	</select>
+	
+	<select id="pageMaritalAgencyTotal" parameterType="com.wang.so.love.service.param.SoLoveMaritalAgencyParam" resultType="java.lang.Integer">
+		select 
+			count(1)
+		from solove_maritalAgency
+		<where>
+			a.isDelete = "no"
+			<if test=" maritalAgency.maritalAgencyName!=null and maritalAgency.maritalAgencyName!='' ">
+				and maritalAgencyName like %${maritalAgency.maritalAgencyName}%
+			</if>
+		</where>
+	</select>
+	
 </mapper>

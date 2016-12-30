@@ -1,5 +1,7 @@
 package com.wang.so.love.service.imp;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,6 +133,36 @@ public class SoLoveMaritalAgencyServiceImp implements SoLoveMaritalAgencyService
 		try {
 			SoLoveMaritalAgencyEntity MaritalAgency = soLoveMaritalAgencyModel.getMaritalAgencyByID(maritalAgencyID);
 			serviceResult.setResult(MaritalAgency);
+		} catch (BusinessException e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setSuccess(false);
+		} catch (Exception e) {
+			serviceResult.setMessage(e.getMessage());
+			serviceResult.setError(Constants.SERVICE_RESULT_CODE_SYS_ERROR, Constants.SERVICE_RESULT_EXCEPTION_SYS_ERROR);
+			logger.error("发生未知异常!", e);
+		}
+		return serviceResult;
+	}
+
+	/**
+	 * 分页获取婚介所信息
+	 * 
+	 * @param param 查询信息
+	 * @param start 分页信息
+	 * @param length 分页信息
+	 * @param draw 分页信息
+	 * @return
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.30
+	 */
+	@Override
+	public ServiceResult<Map<String, Object>> pageMaritalAgency(SoLoveMaritalAgencyParam param, Integer start, Integer length, Integer draw) {
+		Assert.notNull(soLoveMaritalAgencyModel, "Property 'soLoveMaritalAgencyModel' is required.");
+		ServiceResult<Map<String, Object>> serviceResult = new ServiceResult<Map<String, Object>>();
+		try {
+			Map<String, Object> resultMap = soLoveMaritalAgencyModel.pageMaritalAgency(param, start, length, draw);
+			serviceResult.setResult(resultMap);
 		} catch (BusinessException e) {
 			serviceResult.setMessage(e.getMessage());
 			serviceResult.setSuccess(false);
