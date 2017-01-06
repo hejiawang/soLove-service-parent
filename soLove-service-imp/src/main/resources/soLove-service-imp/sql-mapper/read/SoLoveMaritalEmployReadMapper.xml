@@ -45,4 +45,48 @@
 		where a.maritalEmployID = #{maritalEmployID, jdbcType=INTEGER}
 	</select>
 	
+	<select id="pageMaritalEmploy" parameterType="java.util.Map" resultType="java.util.Map">
+		select 
+			a.maritalEmployID, a.maritalAgencyID, a.maritalEmploySex,
+			a.maritalEmployAge, a.maritalEmployName, a.maritalEmployNick,
+			a.maritalEmployPhone,a.maritalEmployQQ,a.maritalEmployWeixin,
+			a.maritalEmployImage,a.maritalEmployEvaluation,a.sort,
+			a.isCurrent,a.isDelete,a.theNode,
+			b.maritalAgencyName
+		from solove_maritalEmploy a
+		inner join solove_maritalAgency b on a.maritalAgencyID = b.maritalAgencyID
+		<where>
+			a.isDelete = "no"
+			<if test=" maritalEmploy.maritalAgencyName!=null and maritalEmploy.maritalAgencyName!='' ">
+				and b.maritalAgencyName like %${maritalEmploy.maritalAgencyName}%
+			</if>
+			<if test=" maritalEmploy.maritalEmployName!=null and maritalEmploy.maritalEmployName!='' ">
+				and a.maritalEmployName like %${maritalEmploy.maritalEmployName}%
+			</if>
+			<if test=" maritalEmploy.maritalEmployNick!=null and maritalEmploy.maritalEmployNick!='' ">
+				and a.maritalEmployNick like %${maritalEmploy.maritalEmployNick}%
+			</if>
+		</where>
+		limit #{start, jdbcType=INTEGER}, #{end, jdbcType=INTEGER}
+	</select>
+	
+	<select id="pageMaritalAgencyTotal" parameterType="com.wang.so.love.service.param.SoLoveMaritalEmployParam" resultType="java.lang.Integer">
+		select 
+			count(1)
+		from solove_maritalEmploy a
+		inner join solove_maritalAgency b on a.maritalAgencyID = b.maritalAgencyID
+		<where>
+			a.isDelete = "no"
+			<if test=" maritalEmploy.maritalAgencyName!=null and maritalEmploy.maritalAgencyName!='' ">
+				and b.maritalAgencyName like %${maritalEmploy.maritalAgencyName}%
+			</if>
+			<if test=" maritalEmploy.maritalEmployName!=null and maritalEmploy.maritalEmployName!='' ">
+				and a.maritalEmployName like %${maritalEmploy.maritalEmployName}%
+			</if>
+			<if test=" maritalEmploy.maritalEmployNick!=null and maritalEmploy.maritalEmployNick!='' ">
+				and a.maritalEmployNick like %${maritalEmploy.maritalEmployNick}%
+			</if>
+		</where>
+	</select>
+	
 </mapper>

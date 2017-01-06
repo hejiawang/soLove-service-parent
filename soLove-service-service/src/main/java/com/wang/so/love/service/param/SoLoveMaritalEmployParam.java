@@ -89,6 +89,19 @@ public class SoLoveMaritalEmployParam implements Serializable {
 	 * 备注
 	 */
 	private String theNode;
+	
+	/**
+	 * 婚介所名称
+	 */
+	private  String maritalAgencyName;
+
+	public String getMaritalAgencyName() {
+		return maritalAgencyName;
+	}
+
+	public void setMaritalAgencyName(String maritalAgencyName) {
+		this.maritalAgencyName = maritalAgencyName;
+	}
 
 	public Integer getMaritalEmployID() {
 		return maritalEmployID;

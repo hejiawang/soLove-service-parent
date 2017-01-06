@@ -1,5 +1,7 @@
 package com.wang.so.love.service.service;
 
+import java.util.Map;
+
 import com.wang.core.ServiceResult;
 import com.wang.so.love.service.param.SoLoveMaritalEmployParam;
 import com.wang.so.love.service.vo.SoLoveMaritalEmployVO;
@@ -40,4 +42,17 @@ public interface SoLoveMaritalEmployService {
 	 * @return 婚介所工作人员以及所在婚介所的信息
 	 */
 	public ServiceResult<SoLoveMaritalEmployVO> getMaritalEmploy(Integer maritalEmployID);
+
+	/**
+	 * 分页获取婚介所老师信息
+	 * @param param 查询信息
+	 * @param start 分页——
+	 * @param length 分页——
+	 * @param draw 分页——
+	 * @return
+	 * 
+	 * @author HeJiawang
+	 * @date   2017.01.06
+	 */
+	public ServiceResult<Map<String,Object>> pageMaritalEmploy(SoLoveMaritalEmployParam param, Integer start, Integer length, Integer draw);
 }
