@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.write.SoLoveActivityWriteDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveActivityEntity">
+		<id column="activityID" property="activityID" jdbcType="INTEGER" />
+		<result column="activityMoney" property="activityMoney" jdbcType="INTEGER" />
+		<result column="activityStartTime" property="activityStartTime" jdbcType="TIMESTAMP"/>
+		<result column="activityEndTime" property="activityEndTime" jdbcType="TIMESTAMP"/>
+		<result column="activityContent" property="activityContent" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="isDelete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="isCurrent" property="isCurrent" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		activityID, activityMoney, activityStartTime, activityEndTime, 
+		activityContent, sort, isDelete, isCurrent
+	</sql>
+	
+	<insert id="addActivity" parameterType="com.wang.so.love.service.param.SoLoveActivityParam">
+		insert into soLove_activity (
+			activityMoney, activityStartTime, activityEndTime,
+			activityContent, sort
+		) values (
+			#{activityMoney}, #{activityStartTime}, #{activityEndTime},
+			#{activityContent}, #{sort}
+		)
+	</insert>
+	
+	<update id="updateActivity" parameterType="com.wang.so.love.service.param.SoLoveActivityParam">
+		update soLove_activity set 
+			activityMoney = #{activityMoney}, activityStartTime = #{activityStartTime},  
+			activityEndTime = #{activityEndTime}, 
+			activityContent = #{activityContent},  sort = #{sort}, 
+		where activityID = #{activityID, jdbcType=INTEGER}
+	</update>
+	
+	<update id="deleteActivity">
+		update soLove_activity set isDelete = 'yes' where areaID = activityID = #{activityID, jdbcType=INTEGER}
+	</update>
+	
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.read.SoLoveActivityReadDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveActivityEntity">
+		<id column="activityID" property="activityID" jdbcType="INTEGER" />
+		<result column="activityMoney" property="activityMoney" jdbcType="INTEGER" />
+		<result column="activityStartTime" property="activityStartTime" jdbcType="TIMESTAMP"/>
+		<result column="activityEndTime" property="activityEndTime" jdbcType="TIMESTAMP"/>
+		<result column="activityContent" property="activityContent" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="isDelete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="isCurrent" property="isCurrent" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		activityID, activityMoney, activityStartTime, activityEndTime, 
+		activityContent, sort, isDelete, isCurrent
+	</sql>
+	
+	<select id="pageActivity" parameterType="java.util.Map" resultType="java.util.Map">
+		select
+			<include refid="getAllColumn" />
+		from solove_activity
+		<where>
+			isDelete = 'no'
+			<if test=" activity.activityStartTime!=null and activity.activityStartTime!='' ">
+				and DATE_FORMAT(activityStartTime,'%Y-%m-%d') &gt;= #{activity.activityStartTime}
+			</if>
+			<if test=" activity.activityEndTime!=null and activity.activityEndTime!='' ">
+				and DATE_FORMAT(activityEndTime,'%Y-%m-%d') &lt;= #{activity.activityEndTime}
+			</if>
+		</where>
+		order by sort
+		limit #{start, jdbcType=INTEGER}, #{end, jdbcType=INTEGER}
+	</select>
+	
+	<select id="pageActivityTotal" parameterType="com.wang.so.love.service.param.SoLoveActivityParam" resultType="java.lang.Integer">
+		select
+			count(1)
+		from solove_activity
+		<where>
+			isDelete = 'no'
+			<if test=" activity.activityStartTime!=null and activity.activityStartTime!='' ">
+				and DATE_FORMAT(activityStartTime,'%Y-%m-%d') &gt;= #{activity.activityStartTime}
+			</if>
+			<if test=" activity.activityEndTime!=null and activity.activityEndTime!='' ">
+				and DATE_FORMAT(activityEndTime,'%Y-%m-%d') &lt;= #{activity.activityEndTime}
+			</if>
+		</where>
+	</select>
+	
+	<select id="checkCurrent" resultType="java.lang.Integer">
+		select count(1)
+		from solove_activity
+		where isDelete = 'no' and activityID = #{activityID}
+		and DATE_FORMAT(activityStartTime,'%Y-%m-%d') &lt;= DATE_FORMAT(now(),'%Y-%m-%d')
+		and DATE_FORMAT(activityEndTime,'%Y-%m-%d') &gt;= DATE_FORMAT(now(),'%Y-%m-%d')
+	</select>
+	
+	<select id="getActivityByID" resultMap="BaseResultMap">
+		select <include refid="getAllColumn" />
+		from solove_activity
+		where isDelete = 'no'
+		and activityID = #{activityID}
+	</select>
+	
+</mapper>
