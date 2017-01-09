@@ -273,7 +273,21 @@ CREATE TABLE `solove_marital_member` (
   PRIMARY KEY (`maritalMemberID`)
 ) DEFAULT CHARSET=utf8;
 
-
+/*创建消息表--solove_message*/
+DROP TABLE IF EXISTS `solove_message`;
+CREATE TABLE `solove_message` (
+  `messageID` int(11) NOT NULL AUTO_INCREMENT COMMENT '消息ID',
+  `isCurrent` varchar(10) NOT NULL DEFAULT 'normal' COMMENT '当前状态, normal:正常(默认) pause:暂停',
+  `isDelete` varchar(5) NOT NULL DEFAULT 'no' COMMENT '是否删除, yes:已删除  no:未删除(默认)',
+  `sendUserID` int(11) NOT NULL COMMENT '发送者ID',
+  `receiveUserID` int(11) NOT NULL COMMENT '接收者ID',
+  `messageContent` varchar(500) DEFAULT NULL COMMENT '消息内容',
+  `creatTime` TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '消息发送时间',
+  `isLook` varchar(5) NOT NULL DEFAULT 'no' COMMENT '是否查看, yes:已查看  no:未查看(默认)',
+  `isAudit` varchar(5) NOT NULL DEFAULT 'no' COMMENT '是否审核, yes:已审核  no:未审核(默认)',
+  `theNode` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`maritalMemberID`)
+) DEFAULT CHARSET=utf8;
 
 
 

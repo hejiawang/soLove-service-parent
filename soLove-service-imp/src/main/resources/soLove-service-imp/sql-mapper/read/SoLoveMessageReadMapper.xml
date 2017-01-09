@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.read.SoLoveMessageReadDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveMessageEntity">
+		<id column="messageID" property="messageID" jdbcType="INTEGER" />
+		<result column="isDelete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="isCurrent" property="isCurrent" jdbcType="VARCHAR" />
+		<result column="sendUserID" property="sendUserID" jdbcType="INTEGER" />
+		<result column="receiveUserID" property="receiveUserID" jdbcType="INTEGER" />
+		<result column="messageContent" property="messageContent" jdbcType="VARCHAR" />
+		<result column="creatTime" property="creatTime" jdbcType="TIMESTAMP"/>
+		<result column="isLook" property="isLook" jdbcType="VARCHAR" />
+		<result column="isAudit" property="isAudit" jdbcType="VARCHAR" />
+		<result column="theNode" property="theNode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		messageID, isDelete, isCurrent, sendUserID, receiveUserID,
+		messageContent, creatTime, isLook, isAudit, theNode
+	</sql>
+	
+	<select id="pageMessage" parameterType="java.util.Map" resultType="java.util.Map">
+		select
+			a.*, 
+			b.userNick as sendUserNick, b.userName as sendUserName,
+			c.userNik as receiveUserNick, c.userName as receiveUserName
+		from solove_message a
+		inner join solove_userDetailInfo b on a.sendUserID = b.userID
+		inner join solove_userDetailInfo c on a.receiveUserID = c.userID
+		<where>
+			a.isDelete = 'no'
+			<if test=" message.sendUserName!=null and message.sendUserName!='' ">
+				and b.userName like %${message.sendUserName}%
+			</if>
+			<if test=" message.receiveUserName!=null and message.receiveUserName!='' ">
+				and c.userName like %${message.receiveUserName}%
+			</if>
+		</where>
+		limit #{start, jdbcType=INTEGER}, #{end, jdbcType=INTEGER}
+	</select>
+	
+	<select id="pageMessageTotal" parameterType="com.wang.so.love.service.param.SoLoveMessageParam" resultType="java.lang.Integer">
+		select
+			count(1)
+		from solove_message a
+		inner join solove_userDetailInfo b on a.sendUserID = b.userID
+		inner join solove_userDetailInfo c on a.receiveUserID = c.userID
+		<where>
+			isDelete = 'no'
+			<if test=" message.sendUserName!=null and message.sendUserName!='' ">
+				and b.userName like %${message.sendUserName}%
+			</if>
+			<if test=" message.receiveUserName!=null and message.receiveUserName!='' ">
+				and c.userName like %${message.receiveUserName}%
+			</if>
+		</where>
+	</select>
+	
+	<select id="getMessageByID" resultType="com.wang.so.love.service.vo.SoLoveMessageVO">
+		select
+			a.*, 
+			b.userNick as sendUserNick, b.userName as sendUserName,
+			c.userNik as receiveUserNick, c.userName as receiveUserName
+		from solove_message a
+		inner join solove_userDetailInfo b on a.sendUserID = b.userID
+		inner join solove_userDetailInfo c on a.receiveUserID = c.userID
+		where a.isDelete = 'no' and a.messageID = #{messageID, jdbcType=INTEGER}
+	</select>
+	
+	<select id="getMessageBySendUserID" resultType="com.wang.so.love.service.vo.SoLoveMessageVO">
+		select
+			a.*, 
+			b.userNick as sendUserNick, b.userName as sendUserName,
+			c.userNik as receiveUserNick, c.userName as receiveUserName
+		from solove_message a
+		inner join solove_userDetailInfo b on a.sendUserID = b.userID
+		inner join solove_userDetailInfo c on a.receiveUserID = c.userID
+		where a.isDelete = 'no' and a.isAudit = 'yes'
+			and a.sendUserID = #{sendUserID, jdbcType=INTEGER}
+	</select>
+	
+	<select id="getMessageByReceiveUserID" resultType="com.wang.so.love.service.vo.SoLoveMessageVO">
+		select
+			a.*, 
+			b.userNick as sendUserNick, b.userName as sendUserName,
+			c.userNik as receiveUserNick, c.userName as receiveUserName
+		from solove_message a
+		inner join solove_userDetailInfo b on a.sendUserID = b.userID
+		inner join solove_userDetailInfo c on a.receiveUserID = c.userID
+		where a.isDelete = 'no' and a.isAudit = 'yes'
+			and a.receiveUserID = #{receiveUserID, jdbcType=INTEGER}
+	</select>
+	
+	<select id="getNotLookCountByReceiveUserID" resultType="java.lang.Integer">
+		select count(1)
+		from solove_message
+		where isDelete = 'no' 
+			and receiveUserID = #{receiveUserID, jdbcType=INTEGER}
+			and isLook = 'no'
+	</select>
+	
+</mapper>

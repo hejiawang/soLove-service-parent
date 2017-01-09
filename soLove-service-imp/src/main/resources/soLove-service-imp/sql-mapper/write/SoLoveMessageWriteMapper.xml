@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wang.so.love.service.dao.write.SoLoveMessageWriteDao">
+	
+	<resultMap id="BaseResultMap" type="com.wang.so.love.service.entity.SoLoveMessageEntity">
+		<id column="messageID" property="messageID" jdbcType="INTEGER" />
+		<result column="isDelete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="isCurrent" property="isCurrent" jdbcType="VARCHAR" />
+		<result column="sendUserID" property="sendUserID" jdbcType="INTEGER" />
+		<result column="receiveUserID" property="receiveUserID" jdbcType="INTEGER" />
+		<result column="messageContent" property="messageContent" jdbcType="VARCHAR" />
+		<result column="creatTime" property="creatTime" jdbcType="TIMESTAMP"/>
+		<result column="isLook" property="isLook" jdbcType="VARCHAR" />
+		<result column="isAudit" property="isAudit" jdbcType="VARCHAR" />
+		<result column="theNode" property="theNode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="getAllColumn">
+		messageID, isDelete, isCurrent, sendUserID, receiveUserID,
+		messageContent, creatTime, isLook, isAudit, theNode
+	</sql>
+	
+	<insert id="addMessage" parameterType="com.wang.so.love.service.param.SoLoveMessageParam">
+		insert into soLove_message (
+			sendUserID, receiveUserID, messageContent,
+			isAudit, theNode
+		) values (
+			#{sendUserID}, #{receiveUserID}, #{messageContent},
+			#{isAudit}, #{theNode}
+		)
+	</insert>
+	
+	<update id="updateMessage" parameterType="com.wang.so.love.service.param.SoLoveMessageParam">
+		update soLove_message set 
+			sendUserID = #{sendUserID}, receiveUserID = #{receiveUserID},  
+			messageContent = #{messageContent}, 
+			isAudit = #{isAudit},  theNode = #{theNode}, 
+		where messageID = #{messageID, jdbcType=INTEGER}
+	</update>
+	
+	<update id="deleteActivity">
+		update soLove_message set isDelete = 'yes' where messageID = #{messageID, jdbcType=INTEGER}
+	</update>
+	
+	<update id="setMessageLook">
+		update soLove_message set isLook = #{isLook, jdbcType=INTEGER} where messageID = #{messageID, jdbcType=INTEGER}
+	</update>
+		
+	<update id="setMessageAudit">
+		update soLove_message set isAudit = #{isAudit, jdbcType=INTEGER} where messageID = #{messageID, jdbcType=INTEGER}
+	</update>
+	
+</mapper>
