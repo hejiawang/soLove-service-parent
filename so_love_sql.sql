@@ -289,7 +289,8 @@ CREATE TABLE `solove_message` (
   PRIMARY KEY (`maritalMemberID`)
 ) DEFAULT CHARSET=utf8;
 
-
+/*广告*/
+/*公告*/
 
 
 
